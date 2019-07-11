@@ -1,7 +1,6 @@
 package com.spring.beans;
 
 import java.sql.Date;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,9 +48,9 @@ public class Coupon {
 	@Column(nullable = false)
 	private String image;
 	
-//	@Basic(optional = false)
-//	@Column(nullable = false)
-//	private CouponType type;
+	@Basic(optional = false)
+	@Column(nullable = false)
+	private CouponType type;
 	
 	
 }
