@@ -1,4 +1,4 @@
-package com.spring.beans;
+package spring.beans;
 
 import java.sql.Date;
 import javax.persistence.Basic;

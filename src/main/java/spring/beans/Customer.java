@@ -1,4 +1,4 @@
-package com.spring.beans;
+package spring.beans;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,17 +13,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompanyCoupon {
+public class Customer {
 
 	@Id
 	@GeneratedValue
-	@Basic(optional = false)
-	@Column(nullable = false)
-	private long companyId;
+	private long id;
 	
-	@Id
-	@GeneratedValue
 	@Basic(optional = false)
 	@Column(nullable = false)
-	private long couponId;
+	private String customerName;
+	
+	@Basic(optional = false)
+	@Column(nullable = false)
+	private String password;
+	
 }
