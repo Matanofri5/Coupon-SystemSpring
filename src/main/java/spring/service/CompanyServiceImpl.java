@@ -1,11 +1,8 @@
 package spring.service;
 
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import spring.models.Company;
 import spring.repository.CompanyRepository;
 
@@ -20,6 +17,5 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public List<Company> findAll(){
 		return companyRepository.findAll();
-		
 	}
 }
