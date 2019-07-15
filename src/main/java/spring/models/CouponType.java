@@ -1,4 +1,4 @@
-package spring.beans;
+package spring.models;
 
 public enum CouponType {
 

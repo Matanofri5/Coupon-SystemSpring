@@ -12,6 +12,6 @@ public class Test {
 	public static void main (String[] args) {
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(Test.class, args);
 		
-		applicationContext.close();
+//		applicationContext.close();
 	}
 }

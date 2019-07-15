@@ -1,5 +1,6 @@
-package spring.beans;
+package spring.models;
 
+import java.io.Serializable;
 import java.sql.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,8 +15,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Coupon {
+public class Coupon implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue
 	private long id;
