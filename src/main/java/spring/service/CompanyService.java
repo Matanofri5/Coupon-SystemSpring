@@ -7,4 +7,6 @@ public interface CompanyService {
 
 	List<Company> findAll();
 
+	Company create(Company company);
+
 }

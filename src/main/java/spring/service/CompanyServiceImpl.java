@@ -18,4 +18,10 @@ public class CompanyServiceImpl implements CompanyService {
 	public List<Company> findAll(){
 		return companyRepository.findAll();
 	}
+
+	@Override
+	public Company create(Company company) {
+		companyRepository.save(company);
+		return company;
+	}
 }
