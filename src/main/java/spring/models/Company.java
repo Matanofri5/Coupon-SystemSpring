@@ -34,6 +34,10 @@ public class Company implements Serializable{
 	@Basic(optional = false)
 	@Column(nullable = false)
 	private String email;
+	
+//	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+//	@Valid
+//	private List<Coupon> coupons;
 
 	
 }

@@ -56,4 +56,13 @@ public class Coupon implements Serializable{
 	private CouponType type;
 	
 	
+//	@ManyToOne
+//	@JsonIgnore
+//	@Valid
+//	private Company company;
+//	@ManyToMany(mappedBy = "coupons")
+//	@Valid
+//	private List<Customer> customers;
+	
+	
 }
