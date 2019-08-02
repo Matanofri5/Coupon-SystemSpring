@@ -15,8 +15,8 @@ import spring.models.Coupon;
 import spring.service.CouponService;
 
 @RestController
-@RequestMapping("/coupon")
-public class CouponController {
+@RequestMapping("/admin")
+public class AdminController {
 
 	@Resource
 	private CouponService couponService;
