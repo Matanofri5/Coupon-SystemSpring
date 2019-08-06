@@ -19,7 +19,7 @@ public class Income {
 	@Id
 	@GeneratedValue
 	private long id;
-	
+
 	@Basic(optional = false)
 	@Column(nullable = false)
 	private String name;
@@ -30,7 +30,7 @@ public class Income {
 	
 	@Basic(optional = false)
 	@Column(nullable = false)
-	private IncomeType incomeType;
+	private IncomeType description;
 	
 	@Basic(optional = false)
 	@Column(nullable = false)
