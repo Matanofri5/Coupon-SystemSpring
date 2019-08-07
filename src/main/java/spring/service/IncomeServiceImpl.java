@@ -1,5 +1,7 @@
 package spring.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -13,10 +15,17 @@ public class IncomeServiceImpl implements IncomeService{
 	private IncomeRepository incomeRepository;
 	
 	@Override
-	public Income stroeIncome (Income income) {
+	public Income storeIncome (Income income) {
 		incomeRepository.save(income);
 		return income;
 	}
-
 	
+	@Override
+	public List<Income> allIncome(){
+		return incomeRepository.findAll();
+	}
+	
+//	public List<Income> findByName(){
+//		return incomeRepository.
+//	}
 }
