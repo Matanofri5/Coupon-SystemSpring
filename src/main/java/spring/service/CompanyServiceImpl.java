@@ -4,6 +4,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import spring.models.Company;
+import spring.models.Coupon;
 import spring.repository.CompanyRepository;
 
 @Service
@@ -18,10 +19,12 @@ public class CompanyServiceImpl implements CompanyService {
 	public List<Company> findAll(){
 		return companyRepository.findAll();
 	}
-
+	
 	@Override
-	public Company create(Company company) {
-		companyRepository.save(company);
-		return company;
+	public Coupon createCoupon(Coupon coupon) {
+		companyRepository.save(coupon);
+		return coupon;
 	}
+
+
 }

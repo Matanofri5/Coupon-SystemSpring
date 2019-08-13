@@ -5,10 +5,13 @@ import org.springframework.stereotype.Repository;
 
 import spring.models.Company;
 import spring.models.Coupon;
+import spring.models.Customer;
 
 @Repository
-public interface CompanyRepository extends JpaRepository<Company, Long>{
+public interface AdminRepository extends JpaRepository<Coupon, Long>{
 
-	void save(Coupon coupon);
+	void save(Company company);
+
+	void save(Customer customer);
 
 }

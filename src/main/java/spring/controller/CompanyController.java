@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import spring.models.Company;
+import spring.models.Coupon;
 import spring.service.CompanyService;
 
 @RestController
@@ -27,11 +28,11 @@ public class CompanyController {
 		return result;
 	}
 	
-	@PostMapping("/create")
-	public ResponseEntity<Company> createCompany(@RequestBody Company company){ 
-		Company company2 = companyService.create(company);
+	@PostMapping("/createCoupon")
+	public ResponseEntity<Coupon> createCoupon(@RequestBody Coupon coupon){ 
+		Coupon coupon2 = companyService.createCoupon(coupon);
 
-		ResponseEntity<Company> result = new ResponseEntity<Company>(company2, HttpStatus.OK);
+		ResponseEntity<Coupon> result = new ResponseEntity<Coupon>(coupon2, HttpStatus.OK);
 		return result;
 	}
 }
