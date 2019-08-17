@@ -2,6 +2,8 @@ package spring.service;
 
 import java.util.List;
 import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.models.Company;
 import spring.models.Coupon;
@@ -9,7 +11,8 @@ import spring.repository.CompanyRepository;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
-	@Resource
+
+	@Autowired
 	private CompanyRepository companyRepository;
 	
 	/* (non-Javadoc)

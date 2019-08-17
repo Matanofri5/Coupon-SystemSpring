@@ -12,11 +12,11 @@ public interface AdminService {
 	
 	Coupon createCoupon (Coupon coupon);
 
-	Company createCompany(Company company);
+	Company createCompany(Company company) throws Exception;
 
 	Customer createCustomer(Customer customer);
 
-	void removeCompany(Company company);
+//	void removeCompany(Company company);
 
 
 }

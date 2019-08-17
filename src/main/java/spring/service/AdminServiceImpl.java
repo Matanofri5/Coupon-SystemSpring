@@ -2,10 +2,8 @@ package spring.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import spring.models.Company;
 import spring.models.Coupon;
 import spring.models.Customer;
@@ -14,7 +12,7 @@ import spring.repository.AdminRepository;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-	@Resource
+	@Autowired
 	private AdminRepository adminRepository;
 	
 
@@ -41,8 +39,8 @@ public class AdminServiceImpl implements AdminService {
 		return customer;
 	}
 
-	@Override
-	public void removeCompany (Company company) {
-		adminRepository.deleteById(company.getId());
-	}
+//	@Override
+//	public void removeCompany (Company company) {
+//		adminRepository.deleteById(company.getId());
+//	}
 }

@@ -40,7 +40,7 @@ public class AdminController {
 //	}
 	
 	@PostMapping("/createCompany")
-	public ResponseEntity<Company> createCompany (@RequestBody Company company){
+	public ResponseEntity<Company> createCompany (@RequestBody Company company) throws Exception{
 		Company company2 = adminService.createCompany(company);
 		ResponseEntity<Company> result = new ResponseEntity<Company>(company2,HttpStatus.OK);
 		return result;

@@ -7,10 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan({ "spring" })
-public class Test {
+public class Application {
 
 	public static void main (String[] args) {
-		ConfigurableApplicationContext applicationContext = SpringApplication.run(Test.class, args);
+		ConfigurableApplicationContext applicationContext = SpringApplication.run(Application.class, args);
 		
 //		applicationContext.close();
 	}

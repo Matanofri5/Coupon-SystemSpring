@@ -14,4 +14,5 @@ public interface AdminRepository extends JpaRepository<Coupon, Long>{
 
 	void save(Customer customer);
 
+
 }
