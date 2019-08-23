@@ -35,10 +35,10 @@ public class AdminServiceImpl implements AdminService {
 	public Company createCompany(Company company) throws Exception {
 		if (checkIfCompanyNameAlreadyExists(company.getCompanyName())==false) {
 			companyRepository.save(company);
-			return company;
 		}else {
 			throw new Exception("The company " + company.getCompanyName() +" already exist, please try another name");
 		}
+		return company;
     }
 	
 	@Override
@@ -47,19 +47,46 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
+	public void updateCompany(Company company, String password, String email) {
+		company.setPassword(password);
+		company.setEmail(email);
+		companyRepository.save(company);
+	}
+	
+	@Override
 	public List<Company> allCompanies(){
 		return companyRepository.findAll();
 	}
 	
 	@Override
-	public Company companyById(long id){
-		return companyRepository.findById(id).get();
+	public Company companyById(long id) {
+		return companyRepository.findById(id);
+	}
+	
+	
+	
+	@Override
+	public boolean checkIfCustomerNameAlreadyExists(String customerName) {
+		if (customerRepository.findByCustomerName(customerName) != null) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
-	public Customer createCustomer(Customer customer) {
-		customerRepository.save(customer);
+	public Customer createCustomer(Customer customer) throws Exception {
+		if (checkIfCustomerNameAlreadyExists(customer.getCustomerName())==false) {
+			customerRepository.save(customer);
+		}else {
+			throw new Exception("The customer " + customer.getCustomerName() +" already exist, please try another name");
+		}
 		return customer;
+	}
+	
+	@Override
+	public void updateCustomer(Customer customer, String password) {
+		customer.setPassword(password);
+		customerRepository.save(customer);
 	}
 	
 	@Override
@@ -67,11 +94,14 @@ public class AdminServiceImpl implements AdminService {
 		customerRepository.deleteById(id);
 	}
 	
+	@Override
 	public List<Customer> allCustomers(){
 		return customerRepository.findAll();
 	}
 	
+	@Override
 	public Customer customerById(long id) {
-		return customerRepository.findById(id).get();
+		return customerRepository.findById(id);
 	}
+
 }

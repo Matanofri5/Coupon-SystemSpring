@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import spring.models.Company;
 import spring.models.Customer;
@@ -47,14 +48,26 @@ public class AdminController {
 		return result;
 	}
 	
+	@PostMapping("/updateCompany")
+	public ResponseEntity<Company> updateCompany(@RequestParam long id, @RequestParam String password, @RequestParam String email) {
+		Company company = null;
+		company = adminService.companyById(id);
+		if (company !=null) {
+			adminService.updateCompany(company, password, email);
+			ResponseEntity<Company> result = new ResponseEntity<>(company,HttpStatus.OK);
+			return result;
+		}
+		return null;
+	}
+	
 //	@GetMapping("/companyById{id}")
-//	public ResponseEntity <Company>companyById(@PathVariable long id) {
-//		
+//	public Company companyById(@PathVariable long id) {
+//		return adminService.companyById(id);
 //	}
 	
 	
 	@PostMapping("/createCustomer")
-	public ResponseEntity<Customer> createCustomer (@RequestBody Customer customer){
+	public ResponseEntity<Customer> createCustomer (@RequestBody Customer customer) throws Exception{
 		Customer customer2 = adminService.createCustomer(customer);
 		ResponseEntity<Customer> result = new ResponseEntity<Customer>(customer2,HttpStatus.OK);
 		return result;
@@ -65,13 +78,16 @@ public class AdminController {
 		 adminService.deleteCustomer(id);
 	}
 	
-	
-//	@GetMapping("/getCoupon")
-//	public ResponseEntity<Coupon> findById(){
-//		ResponseEntity<Coupon> result = new ResponseEntity<Coupon>(couponService.findById(), HttpStatus.OK);
-//		return result;
-//	}
-	
-	
+	@PostMapping("/updateCustomer")
+	public ResponseEntity<Customer> updateCustomer(@RequestParam long id, @RequestParam String password){
+		Customer customer = null;
+		customer = adminService.customerById(id);
+		if (customer != null) {
+			adminService.updateCustomer(customer, password);
+			ResponseEntity<Customer> result = new ResponseEntity<>(customer,HttpStatus.OK);
+			return result;	
+		}
+		return null;
+	}
 
 }
