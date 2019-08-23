@@ -1,9 +1,7 @@
 package spring.controller;
 
 import java.util.List;
-
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,11 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import spring.models.Company;
-import spring.models.Coupon;
 import spring.models.Customer;
 import spring.service.AdminService;
 
@@ -24,20 +19,10 @@ import spring.service.AdminService;
 @RequestMapping("/admin")
 public class AdminController {
 
-	@Resource
+	
+	@Autowired
 	private AdminService adminService;
 	
-	@GetMapping("/getAllCoupons")
-	public ResponseEntity<List<Coupon>> findAll(){
-		ResponseEntity<List<Coupon>> result = new ResponseEntity<List<Coupon>>(adminService.findAll(), HttpStatus.OK);
-		return result;
-	}
-	
-//	@GetMapping("/getCoupon")
-//	public ResponseEntity<Coupon> findById(){
-//		ResponseEntity<Coupon> result = new ResponseEntity<Coupon>(couponService.findById(), HttpStatus.OK);
-//		return result;
-//	}
 	
 	@PostMapping("/createCompany")
 	public ResponseEntity<Company> createCompany (@RequestBody Company company) throws Exception{
@@ -46,6 +31,28 @@ public class AdminController {
 		return result;
 	}
 	
+	@DeleteMapping("/deleteCompany/{id}")
+	public void deleteCompany(@PathVariable long id) {
+		Company company = null;
+		company = adminService.companyById(id);
+		if (company!=null) {
+			 adminService.deleteCompany(id);
+		}
+	}
+	
+	
+	@GetMapping("/getAllCompanies")
+	public ResponseEntity<List<Company>> allCompanies(){
+		ResponseEntity<List<Company>> result = new ResponseEntity<List<Company>>(adminService.allCompanies(), HttpStatus.OK);
+		return result;
+	}
+	
+//	@GetMapping("/companyById{id}")
+//	public ResponseEntity <Company>companyById(@PathVariable long id) {
+//		
+//	}
+	
+	
 	@PostMapping("/createCustomer")
 	public ResponseEntity<Customer> createCustomer (@RequestBody Customer customer){
 		Customer customer2 = adminService.createCustomer(customer);
@@ -53,13 +60,18 @@ public class AdminController {
 		return result;
 	}
 	
-//	@RequestMapping(method = RequestMethod.DELETE, value = "long Id/{companyId}")
-//	public ResponseEntity<Company> removeCompany (@PathVariable long id){
-//		try {
-//			adminService.removeCompany(id);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return null;
+	@DeleteMapping("/deleteCustomer/{id}")	
+	public void deleteCustomer(@PathVariable long id) {
+		 adminService.deleteCustomer(id);
+	}
+	
+	
+//	@GetMapping("/getCoupon")
+//	public ResponseEntity<Coupon> findById(){
+//		ResponseEntity<Coupon> result = new ResponseEntity<Coupon>(couponService.findById(), HttpStatus.OK);
+//		return result;
 //	}
+	
+	
+
 }

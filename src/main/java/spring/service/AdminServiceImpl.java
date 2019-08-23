@@ -4,43 +4,74 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import spring.models.Company;
-import spring.models.Coupon;
 import spring.models.Customer;
-import spring.repository.AdminRepository;
+import spring.repository.CompanyRepository;
+import spring.repository.CouponRepository;
+import spring.repository.CustomerRepository;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 
 	@Autowired
-	private AdminRepository adminRepository;
+	private CouponRepository adminRepository;
 	
-
-	@Override
-	public Company createCompany (Company company) {
-		adminRepository.save(company);
-		return company;
-	}
+	@Autowired
+	private CustomerRepository customerRepository;
 	
+	@Autowired
+	private CompanyRepository companyRepository;
 	
 	@Override
-	public List<Coupon> findAll(){
-		return adminRepository.findAll();
+	public boolean checkIfCompanyNameAlreadyExists(String companyName) {
+		if (companyRepository.findByCompanyName(companyName) != null) {
+			return true;
+		}
+		return false;
 	}
-
+	
 	@Override
-	public Coupon createCoupon(Coupon coupon) {
-		adminRepository.save(coupon);
-		return coupon;
+	public Company createCompany(Company company) throws Exception {
+		if (checkIfCompanyNameAlreadyExists(company.getCompanyName())==false) {
+			companyRepository.save(company);
+			return company;
+		}else {
+			throw new Exception("The company " + company.getCompanyName() +" already exist, please try another name");
+		}
+    }
+	
+	@Override
+	public void deleteCompany(long id) {
+		companyRepository.deleteById(id);
 	}
+	
 	@Override
-	public Customer createCustomer (Customer customer) {
-		adminRepository.save(customer);
+	public List<Company> allCompanies(){
+		return companyRepository.findAll();
+	}
+	
+	@Override
+	public Company companyById(long id){
+		return companyRepository.findById(id).get();
+	}
+	
+	@Override
+	public Customer createCustomer(Customer customer) {
+		customerRepository.save(customer);
 		return customer;
 	}
-
-//	@Override
-//	public void removeCompany (Company company) {
-//		adminRepository.deleteById(company.getId());
-//	}
+	
+	@Override
+	public void deleteCustomer(long id) {
+		customerRepository.deleteById(id);
+	}
+	
+	public List<Customer> allCustomers(){
+		return customerRepository.findAll();
+	}
+	
+	public Customer customerById(long id) {
+		return customerRepository.findById(id).get();
+	}
 }
