@@ -8,5 +8,8 @@ import spring.models.Customer;
 
 public interface CouponRepository extends JpaRepository<Coupon, Long>{
 
+	Coupon findByTitle(String title);
+	
+	Coupon findById (long id);
 
 }

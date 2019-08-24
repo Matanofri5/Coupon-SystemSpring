@@ -14,8 +14,8 @@ import spring.repository.CustomerRepository;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-	@Autowired
-	private CouponRepository adminRepository;
+//	@Autowired
+//	private CouponRepository couponRepository;
 	
 	@Autowired
 	private CustomerRepository customerRepository;

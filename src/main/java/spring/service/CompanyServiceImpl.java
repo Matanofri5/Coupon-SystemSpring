@@ -1,5 +1,6 @@
 package spring.service;
 
+import java.sql.Date;
 import java.util.List;
 import javax.annotation.Resource;
 
@@ -25,10 +26,30 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	@Override
-	public Coupon createCoupon(Coupon coupon) {
-		couponRepository.save(coupon);
+	public boolean checkIfTitleAlreadyExists(String title) {
+		if (companyRepository.findByCompanyName(title) != null) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public Coupon createCoupon(Coupon coupon) throws Exception {
+		if (checkIfTitleAlreadyExists(coupon.getTitle())== false) {
+			couponRepository.save(coupon);
+		}else {
+			throw new Exception("The title " + coupon.getTitle() +" already exist, please try another title");
+		}
 		return coupon;
 	}
+	
+	@Override 
+	public void updateCoupon(Coupon coupon, Date endDate, double price) {
+		coupon.setEndDate(endDate);
+		coupon.setPrice(price);
+		couponRepository.save(coupon);
+	}
+	
+	
 
 
 }
