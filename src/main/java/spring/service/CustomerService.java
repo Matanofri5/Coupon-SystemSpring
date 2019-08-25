@@ -5,6 +5,5 @@ import spring.models.Customer;
 
 public interface CustomerService {
 
-	List<Customer> findAll();
 
 }

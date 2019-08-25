@@ -14,11 +14,5 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 	
-	/* (non-Javadoc)
-	 * @see spring.service.CustomerService#findAll()
-	 */
-	@Override
-	public List<Customer> findAll(){
-		return customerRepository.findAll();
-	}
+	
 }

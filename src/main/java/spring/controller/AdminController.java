@@ -42,12 +42,6 @@ public class AdminController {
 	}
 	
 	
-	@GetMapping("/getAllCompanies")
-	public ResponseEntity<List<Company>> allCompanies(){
-		ResponseEntity<List<Company>> result = new ResponseEntity<List<Company>>(adminService.allCompanies(), HttpStatus.OK);
-		return result;
-	}
-	
 	@PostMapping("/updateCompany")
 	public ResponseEntity<Company> updateCompany(@RequestParam long id, @RequestParam String password, @RequestParam String email) {
 		Company company = null;
@@ -60,10 +54,17 @@ public class AdminController {
 		return null;
 	}
 	
-//	@GetMapping("/companyById{id}")
-//	public Company companyById(@PathVariable long id) {
-//		return adminService.companyById(id);
-//	}
+	@GetMapping("/getAllCompanies")
+	public ResponseEntity<List<Company>> allCompanies(){
+		ResponseEntity<List<Company>> result = new ResponseEntity<List<Company>>(adminService.allCompanies(), HttpStatus.OK);
+		return result;
+	}
+	
+	
+	@GetMapping("/companyById/{id}")
+	public Company companyById(@PathVariable long id) {
+		return adminService.companyById(id);
+	}
 	
 	
 	@PostMapping("/createCustomer")
@@ -89,5 +90,15 @@ public class AdminController {
 		}
 		return null;
 	}
+	
+	@GetMapping("/getAllCustomers")
+	public ResponseEntity<List<Customer>> findAll(){ 
+		ResponseEntity<List<Customer>> result = new ResponseEntity<List<Customer>>(adminService.allCustomers(), HttpStatus.OK);
+		return result;
+	}
 
+	@GetMapping("/customerById/{id}")
+	public Customer customerById(@PathVariable long id) {
+		return adminService.customerById(id);
+	}
 }

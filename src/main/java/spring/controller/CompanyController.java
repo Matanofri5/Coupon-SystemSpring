@@ -29,11 +29,6 @@ public class CompanyController {
 	@Autowired
 	private CouponRepository couponRepository;
 
-	@GetMapping("/all")
-	public ResponseEntity<List<Company>> findAll(){ 
-		ResponseEntity<List<Company>> result = new ResponseEntity<List<Company>>(companyService.findAll(), HttpStatus.OK);
-		return result;
-	}
 	
 	@PostMapping("/createCoupon")
 	public ResponseEntity<Coupon> createCoupon(@RequestBody Coupon coupon) throws Exception{ 

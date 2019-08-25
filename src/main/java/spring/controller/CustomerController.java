@@ -17,9 +17,6 @@ public class CustomerController {
 	@Resource
 	private CustomerService customerService;
 	
-	@GetMapping("/all")
-	public ResponseEntity<List<Customer>> findAll(){ 
-		ResponseEntity<List<Customer>> result = new ResponseEntity<List<Customer>>(customerService.findAll(), HttpStatus.OK);
-		return result;
-	}
+	
+	
 }
