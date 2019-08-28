@@ -7,13 +7,15 @@ import spring.models.Coupon;
 
 public interface CompanyService {
 
-	List<Company> findAll();
+//	List<Company> findAll();
 
 	Coupon createCoupon(Coupon coupon) throws Exception;
 
 	boolean checkIfTitleAlreadyExists(String title);
 
 	void updateCoupon(Coupon coupon, Date endDate, double price);
+
+	Company companyById(long id);
 
 
 }

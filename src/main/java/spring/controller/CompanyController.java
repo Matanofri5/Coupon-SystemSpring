@@ -1,14 +1,11 @@
 package spring.controller;
 
 import java.sql.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +30,8 @@ public class CompanyController {
 	@PostMapping("/createCoupon")
 	public ResponseEntity<Coupon> createCoupon(@RequestBody Coupon coupon) throws Exception{ 
 		Coupon coupon2 = companyService.createCoupon(coupon);
-
 		ResponseEntity<Coupon> result = new ResponseEntity<Coupon>(coupon2, HttpStatus.OK);
+
 		return result;
 	}
 	
@@ -48,5 +45,10 @@ public class CompanyController {
 			return result;
 		}
 		return null;
+	}
+	
+	@GetMapping("/companyById/{id}")
+	public Company companyById(@PathVariable long id) {
+		return companyService.companyById(id);
 	}
 }

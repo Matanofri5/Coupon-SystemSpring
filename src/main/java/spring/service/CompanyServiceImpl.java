@@ -2,8 +2,6 @@ package spring.service;
 
 import java.sql.Date;
 import java.util.List;
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.models.Company;
@@ -20,14 +18,14 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private CouponRepository couponRepository;
 	
-	@Override
-	public List<Company> findAll(){
-		return companyRepository.findAll();
-	}
+//	@Override
+//	public List<Company> findAll(){
+//		return companyRepository.findAll();
+//	}
 	
 	@Override
 	public boolean checkIfTitleAlreadyExists(String title) {
-		if (companyRepository.findByCompanyName(title) != null) {
+		if (couponRepository.findByTitle(title) != null) {
 			return true;
 		}
 		return false;
@@ -47,6 +45,11 @@ public class CompanyServiceImpl implements CompanyService {
 		coupon.setEndDate(endDate);
 		coupon.setPrice(price);
 		couponRepository.save(coupon);
+	}
+	
+	@Override
+	public Company companyById(long id) {
+		return companyRepository.findById(id);
 	}
 	
 	
