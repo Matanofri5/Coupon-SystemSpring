@@ -47,6 +47,12 @@ public class CompanyServiceImpl implements CompanyService {
 		couponRepository.save(coupon);
 	}
 	
+	
+	@Override
+	public void deleteCoupon(long id) {
+		couponRepository.deleteById(id);
+	}
+	
 	@Override
 	public Company companyById(long id) {
 		return companyRepository.findById(id);

@@ -2,9 +2,11 @@ package spring.models;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,15 +48,17 @@ public class Company implements Serializable{
 	private String email;
 	
 	
-	@ManyToMany
-//	@JoinTable(name="company_coupons", joinColumns= {@JoinColumn(name="company_id", referencedColumnName="id")},
-//	inverseJoinColumns= {@JoinColumn(name="coupons_id", referencedColumnName="id")})
 	private List<Coupon> coupons;
 
-	
+	@Access(AccessType.PROPERTY)
+	@OneToMany(cascade=CascadeType.REMOVE)
+	@JoinTable(name="company_coupons", joinColumns= {@JoinColumn(name="company_id", referencedColumnName="id")},
+	inverseJoinColumns= {@JoinColumn(name="coupons_id", referencedColumnName="id")})
 	private List<Coupon> getCoupons(){
 		return coupons;
 	}
+	
+	
 	public void setCoupons(List<Coupon>coupons) {
 		this.coupons = coupons;
 	}

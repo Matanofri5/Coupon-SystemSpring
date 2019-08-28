@@ -17,5 +17,7 @@ public interface CompanyService {
 
 	Company companyById(long id);
 
+	void deleteCoupon(long id);
+
 
 }
