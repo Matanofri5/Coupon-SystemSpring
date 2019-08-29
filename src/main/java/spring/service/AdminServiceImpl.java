@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import spring.exceptions.CompanyAlreadyExistsException;
+import spring.exceptions.CustomerAlreadyExistsException;
 import spring.models.Company;
 import spring.models.Customer;
 import spring.repository.CompanyRepository;
@@ -32,11 +34,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public Company createCompany(Company company) throws Exception {
+	public Company createCompany(Company company) throws CompanyAlreadyExistsException  {
 		if (checkIfCompanyNameAlreadyExists(company.getCompanyName())==false) {
 			companyRepository.save(company);
 		}else {
-			throw new Exception("The company " + company.getCompanyName() +" already exist, please try another name");
+			throw new CompanyAlreadyExistsException("The company " + company.getCompanyName() +" already exist, please try another name");
 		}
 		return company;
     }
@@ -74,11 +76,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public Customer createCustomer(Customer customer) throws Exception {
+	public Customer createCustomer(Customer customer) throws CustomerAlreadyExistsException  {
 		if (checkIfCustomerNameAlreadyExists(customer.getCustomerName())==false) {
 			customerRepository.save(customer);
 		}else {
-			throw new Exception("The customer " + customer.getCustomerName() +" already exist, please try another name");
+			throw new CustomerAlreadyExistsException("The customer " + customer.getCustomerName() +" already exist, please try another name");
 		}
 		return customer;
 	}
