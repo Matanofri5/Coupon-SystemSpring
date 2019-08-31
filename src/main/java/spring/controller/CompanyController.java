@@ -39,7 +39,7 @@ public class CompanyController {
 	@PostMapping("/updateCoupon")
 	public ResponseEntity<Coupon> updateCoupon(@RequestParam long id, @RequestParam Date endDate, @RequestParam double price) {
 		Coupon coupon = null;
-		coupon = couponRepository.findById(id);
+		coupon = couponRepository.findById(id).get();
 		if (coupon !=null) {
 			companyService.updateCoupon(coupon, endDate, price);
 			ResponseEntity<Coupon> result = new ResponseEntity<>(coupon,HttpStatus.OK);
@@ -51,7 +51,7 @@ public class CompanyController {
 	@DeleteMapping("/deleteCoupon/{id}")
 	public void deleteCoupon(@PathVariable long id) {
 		Coupon coupon= null;
-		coupon = couponRepository.findById(id);
+		coupon = couponRepository.findById(id).get();
 		if (coupon!=null) {
 			 companyService.deleteCoupon(id);
 		}

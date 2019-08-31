@@ -18,7 +18,7 @@ public class AdminServiceImpl implements AdminService {
 
 //	@Autowired
 //	private CouponRepository couponRepository;
-	
+		
 	@Autowired
 	private CustomerRepository customerRepository;
 	
@@ -62,7 +62,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Company companyById(long id) {
-		return companyRepository.findById(id);
+		return companyRepository.findById(id).get();
 	}
 	
 	
@@ -103,7 +103,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Customer customerById(long id) {
-		return customerRepository.findById(id);
+		return customerRepository.findById(id).get();
 	}
 
 }

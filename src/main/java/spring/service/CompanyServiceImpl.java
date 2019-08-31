@@ -12,6 +12,9 @@ import spring.repository.CouponRepository;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
+
+	private long compId;
+	
 	@Autowired
 	private CompanyRepository companyRepository;
 	
@@ -34,6 +37,10 @@ public class CompanyServiceImpl implements CompanyService {
 	public Coupon createCoupon(Coupon coupon) throws Exception {
 		if (checkIfTitleAlreadyExists(coupon.getTitle())== false) {
 			couponRepository.save(coupon);
+//			Company comp = companyRepository.findById(compId).get();
+//			comp.getCoupons().add(coupon);
+//
+//			companyRepository.save(comp);
 		}else {
 			throw new Exception("The title " + coupon.getTitle() +" already exist, please try another title");
 		}
@@ -55,7 +62,7 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Override
 	public Company companyById(long id) {
-		return companyRepository.findById(id);
+		return companyRepository.findById(id).get();
 	}
 	
 	
