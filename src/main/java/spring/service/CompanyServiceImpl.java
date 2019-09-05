@@ -4,16 +4,19 @@ import java.sql.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import spring.CouponClientFacade;
+import spring.models.ClientType;
 import spring.models.Company;
 import spring.models.Coupon;
 import spring.repository.CompanyRepository;
 import spring.repository.CouponRepository;
 
 @Service
-public class CompanyServiceImpl implements CompanyService {
+public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 
 
-	private long compId;
+//	private long compId;
 	
 	@Autowired
 	private CompanyRepository companyRepository;
@@ -37,10 +40,9 @@ public class CompanyServiceImpl implements CompanyService {
 	public Coupon createCoupon(Coupon coupon) throws Exception {
 		if (checkIfTitleAlreadyExists(coupon.getTitle())== false) {
 			couponRepository.save(coupon);
-//			Company comp = companyRepository.findById(compId).get();
-//			comp.getCoupons().add(coupon);
-//
-//			companyRepository.save(comp);
+			Company comp = companyRepository.findById((long) 1).get();
+			comp.getCoupons().add(coupon);
+			companyRepository.save(comp);
 		}else {
 			throw new Exception("The title " + coupon.getTitle() +" already exist, please try another title");
 		}
@@ -63,6 +65,11 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public Company companyById(long id) {
 		return companyRepository.findById(id).get();
+	}
+	@Override
+	public CouponClientFacade login(String name, String password, ClientType clientType) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

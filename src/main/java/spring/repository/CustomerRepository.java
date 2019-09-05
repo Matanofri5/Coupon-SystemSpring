@@ -10,5 +10,7 @@ import spring.models.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, Long>{
 
 	Customer findByCustomerName(String customerName);
+	
+	Customer findByCustomerNameAndPassword(String customerName, String password);
 
 }

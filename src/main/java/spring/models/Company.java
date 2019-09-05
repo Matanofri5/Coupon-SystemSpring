@@ -51,9 +51,9 @@ public class Company implements Serializable{
 	private List<Coupon> coupons;
 
 	@Access(AccessType.PROPERTY)
-	@OneToMany///(cascade=CascadeType.REMOVE)
 //	@JoinTable(name="company_coupons", joinColumns= {@JoinColumn(name="company_id", referencedColumnName="id")},
 //	inverseJoinColumns= {@JoinColumn(name="coupons_id", referencedColumnName="id")})
+	@OneToMany
 	public List<Coupon> getCoupons(){
 		return coupons;
 	}

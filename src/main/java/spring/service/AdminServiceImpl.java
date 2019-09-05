@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import spring.CouponClientFacade;
 import spring.exceptions.CompanyAlreadyExistsException;
 import spring.exceptions.CustomerAlreadyExistsException;
+import spring.models.ClientType;
 import spring.models.Company;
 import spring.models.Customer;
 import spring.repository.CompanyRepository;
@@ -14,7 +16,7 @@ import spring.repository.CouponRepository;
 import spring.repository.CustomerRepository;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl implements AdminService, CouponClientFacade {
 
 //	@Autowired
 //	private CouponRepository couponRepository;
@@ -24,6 +26,8 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private CompanyRepository companyRepository;
+	
+	
 	
 	@Override
 	public boolean checkIfCompanyNameAlreadyExists(String companyName) {
@@ -104,6 +108,12 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Customer customerById(long id) {
 		return customerRepository.findById(id).get();
+	}
+
+	@Override
+	public CouponClientFacade login(String name, String password, ClientType clientType) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
