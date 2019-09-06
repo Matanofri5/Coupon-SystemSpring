@@ -2,6 +2,8 @@ package spring;
 
 import org.springframework.stereotype.Component;
 
+import net.bytebuddy.asm.Advice.This;
+
 @Component
 public class Session {
 
@@ -20,6 +22,10 @@ public class Session {
 	}
 	public void setLastAccesed(long lastAccesed) {
 		this.lastAccesed = lastAccesed;
+	}
+	@Override
+	public String toString() {
+		return "Session [facade=" + facade + ", lastAccesed=" + lastAccesed + "]";
 	}
 	
 	

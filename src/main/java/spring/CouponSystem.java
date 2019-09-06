@@ -11,6 +11,7 @@ import spring.models.Company;
 import spring.models.Customer;
 import spring.repository.CompanyRepository;
 import spring.repository.CustomerRepository;
+import spring.service.AdminService;
 import spring.service.AdminServiceImpl;
 import spring.service.CompanyServiceImpl;
 import spring.service.CustomerServiceImpl;
@@ -22,7 +23,7 @@ public class CouponSystem {
 	private ApplicationContext context;
 	
 	@Autowired
-	AdminServiceImpl adminFacade;
+	AdminService adminFacade;
 	
 	@Autowired
 	private CompanyRepository companyRepo;
@@ -46,7 +47,7 @@ public class CouponSystem {
 		switch (clientType) {
 		case ADMIN:
 			if (name.equals("admin")&&password.equals("1234")) {
-				return adminFacade ;
+				return (CouponClientFacade) adminFacade ;
 			}
 		case COMPANY:
 			Company comp = companyRepo.findCompanyByCompanyNameAndPassword(name, password);

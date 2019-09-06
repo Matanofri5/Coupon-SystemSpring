@@ -40,6 +40,7 @@ public class LoginController {
 		
 		try {
 			facade=couponSystem.login(name, password, ClientType.valueOf(clientType));
+			session = new Session();
 			session.setFacade(facade);
 			session.setLastAccesed(lastAccessed);
 			tokens.put(token, session);

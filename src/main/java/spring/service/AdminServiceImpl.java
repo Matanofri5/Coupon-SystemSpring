@@ -113,7 +113,7 @@ public class AdminServiceImpl implements AdminService, CouponClientFacade {
 	@Override
 	public CouponClientFacade login(String name, String password, ClientType clientType) {
 		// TODO Auto-generated method stub
-		return null;
+		return new AdminServiceImpl();
 	}
 
 }
