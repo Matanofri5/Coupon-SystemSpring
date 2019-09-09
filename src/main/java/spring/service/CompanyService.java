@@ -19,5 +19,7 @@ public interface CompanyService {
 
 	void deleteCoupon(long id);
 
+	void setCompany(Company company);
+
 
 }

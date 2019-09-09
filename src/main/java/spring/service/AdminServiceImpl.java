@@ -1,19 +1,23 @@
 package spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.CouponClientFacade;
+import spring.Session;
 import spring.exceptions.CompanyAlreadyExistsException;
 import spring.exceptions.CustomerAlreadyExistsException;
 import spring.models.ClientType;
 import spring.models.Company;
 import spring.models.Customer;
+import spring.models.Income;
 import spring.repository.CompanyRepository;
 import spring.repository.CouponRepository;
 import spring.repository.CustomerRepository;
+import spring.repository.IncomeRepository;
 
 @Service
 public class AdminServiceImpl implements AdminService, CouponClientFacade {
@@ -26,6 +30,9 @@ public class AdminServiceImpl implements AdminService, CouponClientFacade {
 	
 	@Autowired
 	private CompanyRepository companyRepository;
+	
+	@Autowired
+	private IncomeRepository incomeRepository;
 	
 	
 	
@@ -108,6 +115,11 @@ public class AdminServiceImpl implements AdminService, CouponClientFacade {
 	@Override
 	public Customer customerById(long id) {
 		return customerRepository.findById(id).get();
+	}
+	
+	@Override
+	public List<Income> allIncome(){
+		return incomeRepository.findAll();
 	}
 
 	@Override

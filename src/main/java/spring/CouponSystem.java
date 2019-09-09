@@ -1,7 +1,5 @@
 package spring;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -13,7 +11,9 @@ import spring.repository.CompanyRepository;
 import spring.repository.CustomerRepository;
 import spring.service.AdminService;
 import spring.service.AdminServiceImpl;
+import spring.service.CompanyService;
 import spring.service.CompanyServiceImpl;
+import spring.service.CustomerService;
 import spring.service.CustomerServiceImpl;
 
 @Service
@@ -21,47 +21,42 @@ public class CouponSystem {
 
 	@Autowired
 	private ApplicationContext context;
-	
+
 	@Autowired
-	AdminService adminFacade;
-	
+	private AdminService adminFacade;
+
 	@Autowired
 	private CompanyRepository companyRepo;
-	
+
 	@Autowired
 	private CustomerRepository customerRepo;
-	
-	
-	
-//	@PostConstruct
-	//here will be couponsThread
-	
-//	@PreDestroy
-	//here will be couponsThread
-	
-	
-	
-	
-	
-	public CouponClientFacade login (String name, String password, ClientType clientType) throws couponSystemException {
+
+	// @PostConstruct
+	// here will be couponsThread
+
+	// @PreDestroy
+	// here will be couponsThread
+
+	public CouponClientFacade login(String name, String password, ClientType clientType) throws couponSystemException {
 		switch (clientType) {
 		case ADMIN:
-			if (name.equals("admin")&&password.equals("1234")) {
-				return (CouponClientFacade) adminFacade ;
+			if (name.equals("admin") && password.equals("1234")) {
+				adminFacade = context.getBean(AdminServiceImpl.class);
+				return (CouponClientFacade) adminFacade;
 			}
 		case COMPANY:
 			Company comp = companyRepo.findCompanyByCompanyNameAndPassword(name, password);
-			if (comp!=null) {
-				CompanyServiceImpl company = context.getBean(CompanyServiceImpl.class);
-				comp.setId(comp.getId());
-				return company;
+			if (comp != null) {
+				CompanyService company = context.getBean(CompanyServiceImpl.class);
+				company.setCompany(comp);
+				return (CouponClientFacade) company;
 			}
 		case CUSTOMER:
 			Customer cust = customerRepo.findByCustomerNameAndPassword(name, password);
-			if (cust!=null) {
-				CustomerServiceImpl customer = context.getBean(CustomerServiceImpl.class);
-				cust.setId(cust.getId());
-				return customer;
+			if (cust != null) {
+				CustomerService customer = context.getBean(CustomerServiceImpl.class);
+				customer.setCustomer(cust);
+				return (CouponClientFacade) customer;
 			}
 		}
 		throw new couponSystemException("Login Falied! Invalid User or Password!");

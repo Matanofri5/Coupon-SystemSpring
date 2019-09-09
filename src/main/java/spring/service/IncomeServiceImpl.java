@@ -27,6 +27,8 @@ public class IncomeServiceImpl implements IncomeService{
 		return incomeRepository.findAll();
 	}
 	
+
+	
 //	public List<Income> findByName(){
 //		return incomeRepository.
 //	}

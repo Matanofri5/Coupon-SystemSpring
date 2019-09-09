@@ -24,6 +24,12 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 	@Autowired
 	private CouponRepository couponRepository;
 	
+	private Company company;
+	@Override
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+	
 //	@Override
 //	public List<Company> findAll(){
 //		return companyRepository.findAll();

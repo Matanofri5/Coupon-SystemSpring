@@ -1,6 +1,9 @@
 package spring.controller;
 
 import java.sql.Date;
+import java.util.Map;
+
+import org.apache.catalina.util.SessionConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import spring.Session;
 import spring.models.Company;
 import spring.models.Coupon;
 import spring.repository.CouponRepository;
@@ -26,13 +31,18 @@ public class CompanyController {
 	
 	@Autowired
 	private CouponRepository couponRepository;
-
+	
+//	@Autowired
+//	private Map<String, Session>tokens;
+//
+//	private Session isActive(String token) {
+//		return tokens.get(token);
+//	}
 	
 	@PostMapping("/createCoupon")
 	public ResponseEntity<Coupon> createCoupon(@RequestBody Coupon coupon) throws Exception{ 
 		Coupon coupon2 = companyService.createCoupon(coupon);
 		ResponseEntity<Coupon> result = new ResponseEntity<Coupon>(coupon2, HttpStatus.OK);
-
 		return result;
 	}
 	

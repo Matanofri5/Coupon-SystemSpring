@@ -33,14 +33,13 @@ public class LoginController {
 			return new ResponseEntity<>("Check clientType again", HttpStatus.UNAUTHORIZED);
 		}
 		
-		Session session = null;
+		Session session = new Session();
 		CouponClientFacade facade = null;
 		String token = UUID.randomUUID().toString();
 		long lastAccessed=System.currentTimeMillis();
 		
 		try {
 			facade=couponSystem.login(name, password, ClientType.valueOf(clientType));
-			session = new Session();
 			session.setFacade(facade);
 			session.setLastAccesed(lastAccessed);
 			tokens.put(token, session);

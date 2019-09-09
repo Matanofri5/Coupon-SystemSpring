@@ -5,5 +5,8 @@ import spring.models.Customer;
 
 public interface CustomerService {
 
+	void setCustomer(Customer customer);
+
+
 
 }
