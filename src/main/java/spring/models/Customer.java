@@ -2,6 +2,9 @@ package spring.models;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +40,19 @@ public class Customer implements Serializable{
 	private String password;
 
 	
-	@OneToMany
 	private List<Coupon> coupons;
+
+	@Access(AccessType.PROPERTY)
+//	@JoinTable(name="customer_coupons", joinColumns= {@JoinColumn(name="customer_id", referencedColumnName="id")},
+//	inverseJoinColumns= {@JoinColumn(name="coupons_id", referencedColumnName="id")})
+	@OneToMany
+	public List<Coupon> getCoupons(){
+		return coupons;
+	}
+	
+	
+	public void setCoupons(List<Coupon>coupons) {
+		this.coupons = coupons;
+	}
 	
 }

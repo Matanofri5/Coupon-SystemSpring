@@ -23,7 +23,7 @@ public class CouponSystem {
 	private ApplicationContext context;
 
 	@Autowired
-	private AdminService adminFacade;
+	private AdminServiceImpl adminFacade;
 
 	@Autowired
 	private CompanyRepository companyRepo;
@@ -42,7 +42,10 @@ public class CouponSystem {
 		case ADMIN:
 			if (name.equals("admin") && password.equals("1234")) {
 				adminFacade = context.getBean(AdminServiceImpl.class);
+				System.err.println(adminFacade);
 				return (CouponClientFacade) adminFacade;
+			}else {
+				throw new couponSystemException("Admin failed to connect");
 			}
 		case COMPANY:
 			Company comp = companyRepo.findCompanyByCompanyNameAndPassword(name, password);

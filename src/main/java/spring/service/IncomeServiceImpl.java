@@ -29,7 +29,13 @@ public class IncomeServiceImpl implements IncomeService{
 	
 
 	
-//	public List<Income> findByName(){
-//		return incomeRepository.
+//	public List<Income> viewIncomeByCustomer(long customerId){
+//		
 //	}
+	
+//	public List<Income> viewIncomeByCompany(long companyId){
+//		
+//	}
+	
+	
 }

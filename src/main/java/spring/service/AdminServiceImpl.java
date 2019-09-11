@@ -10,6 +10,7 @@ import spring.CouponClientFacade;
 import spring.Session;
 import spring.exceptions.CompanyAlreadyExistsException;
 import spring.exceptions.CustomerAlreadyExistsException;
+import spring.exceptions.DoesntExistException;
 import spring.models.ClientType;
 import spring.models.Company;
 import spring.models.Customer;
@@ -34,6 +35,9 @@ public class AdminServiceImpl implements AdminService, CouponClientFacade {
 	@Autowired
 	private IncomeRepository incomeRepository;
 	
+	public AdminServiceImpl() {
+	}
+	
 	
 	
 	@Override
@@ -56,7 +60,14 @@ public class AdminServiceImpl implements AdminService, CouponClientFacade {
 	
 	@Override
 	public void deleteCompany(long id) {
+		try {
+			if (!companyRepository.existsById(id)) {
+				throw new DoesntExistException("This company doesn't exist, please try another one");
+			}
 		companyRepository.deleteById(id);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
 	@Override

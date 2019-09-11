@@ -1,5 +1,6 @@
 package spring.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -21,8 +22,8 @@ import spring.models.ClientType;
 @RequestMapping("Login")
 public class LoginController {
 
-	@Autowired
-	private Map<String, Session> tokens;
+	
+	public static Map<String, Session> tokens = new HashMap<String, Session>();
 	@Autowired
 	private CouponSystem couponSystem;
 	

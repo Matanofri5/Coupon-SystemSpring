@@ -37,12 +37,16 @@ public class AdminController {
 	private Map<String, Session> tokens;
 
 	private Session exists(String token) {
-		return tokens.get(token);
+		System.out.println("1 - " + token);
+		System.out.println("2 - " + LoginController.tokens);
+//		return tokens.get(token);
+		return LoginController.tokens.get(token);
 	}
 
 	@PostMapping("/createCompany/{token}")
 	public ResponseEntity<String> createCompany(@RequestBody Company company, @PathVariable String token)throws Exception {
 		Session session = exists(token);
+		System.out.println("my session = "+ session);
 		if (session != null) {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {

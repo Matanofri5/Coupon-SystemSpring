@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.CouponClientFacade;
+import spring.DateUtils;
 import spring.models.ClientType;
 import spring.models.Company;
 import spring.models.Coupon;
+import spring.models.Income;
+import spring.models.IncomeType;
 import spring.repository.CompanyRepository;
 import spring.repository.CouponRepository;
+import spring.repository.IncomeRepository;
 
 @Service
 public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
@@ -23,6 +27,12 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 	
 	@Autowired
 	private CouponRepository couponRepository;
+	
+	@Autowired
+	private IncomeRepository incomeRepository;
+	
+	@Autowired
+	private IncomeService incomeService;
 	
 	private Company company;
 	@Override
@@ -46,9 +56,15 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 	public Coupon createCoupon(Coupon coupon) throws Exception {
 		if (checkIfTitleAlreadyExists(coupon.getTitle())== false) {
 			couponRepository.save(coupon);
-			Company comp = companyRepository.findById((long) 1).get();
-			comp.getCoupons().add(coupon);
-			companyRepository.save(comp);
+//			Company comp = companyRepository.findById((long) 1).get();
+//			comp.getCoupons().add(coupon);
+//			companyRepository.save(comp);
+			Income income = new Income();
+			income.setAmount(100.0);
+			income.setDescription(IncomeType.COMPANY_NEW_COUPON);
+			income.setDate((Date) DateUtils.getCurrentDate());
+			income.setName("FirstIncome");
+			incomeService.storeIncome(income);
 		}else {
 			throw new Exception("The title " + coupon.getTitle() +" already exist, please try another title");
 		}

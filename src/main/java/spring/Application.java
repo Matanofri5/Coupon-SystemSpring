@@ -1,8 +1,13 @@
 package spring;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
@@ -14,4 +19,13 @@ public class Application {
 		System.out.println("Starting SPRING Application !!!!!!");
 //		applicationContext.close();
 	}
+	
+	
+	@Bean
+	public Map<String, Session> tokens(){
+		return new HashMap<String,Session>();
+	}
+	
+	
+	
 }
