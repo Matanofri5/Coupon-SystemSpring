@@ -1,6 +1,7 @@
 package spring.controller;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.catalina.util.SessionConfig;
@@ -20,7 +21,9 @@ import spring.Session;
 import spring.models.Company;
 import spring.models.Coupon;
 import spring.repository.CouponRepository;
+import spring.service.AdminServiceImpl;
 import spring.service.CompanyService;
+import spring.service.CompanyServiceImpl;
 
 @RestController
 @RequestMapping("/company")
@@ -32,18 +35,28 @@ public class CompanyController {
 	@Autowired
 	private CouponRepository couponRepository;
 	
-//	@Autowired
-//	private Map<String, Session>tokens;
-//
-//	private Session isActive(String token) {
-//		return tokens.get(token);
-//	}
+	@Autowired
+	private Map<String, Session> tokens;
+
+	private Session exists(String token) {
+		return LoginController.tokens.get(token);
+	}
 	
-	@PostMapping("/createCoupon")
-	public ResponseEntity<Coupon> createCoupon(@RequestBody Coupon coupon) throws Exception{ 
-		Coupon coupon2 = companyService.createCoupon(coupon);
-		ResponseEntity<Coupon> result = new ResponseEntity<Coupon>(coupon2, HttpStatus.OK);
-		return result;
+	@PostMapping("/createCoupon/{token}")
+	public ResponseEntity<String> createCoupon(@RequestBody Coupon coupon, @PathVariable String token) throws Exception{ 
+		Session session = exists(token);
+		if (session == null) {
+			throw new Exception("Something went wrong with the session !!");
+		} else if (session != null) {
+			session.setLastAccesed(System.currentTimeMillis());
+			try {
+				((CompanyServiceImpl) session.getFacade()).createCoupon(coupon);
+				return new ResponseEntity<>("coupon created  " + coupon, HttpStatus.OK);
+			} catch (Exception e) {
+				return new ResponseEntity<>(e.getMessage() + e.getStackTrace(), HttpStatus.UNAUTHORIZED);
+			}
+		}
+		return null;
 	}
 	
 	@PostMapping("/updateCoupon")
@@ -70,5 +83,11 @@ public class CompanyController {
 	@GetMapping("/companyById/{id}")
 	public Company companyById(@PathVariable long id) {
 		return companyService.companyById(id);
+	}
+	
+	
+	@GetMapping("/getAllCompanyCoupons/{company_id}")
+	public List<Coupon> getAllCompanyCoupons(@PathVariable long company_id) throws Exception{
+		return companyService.getAllCompanyCoupons(company_id);
 	}
 }

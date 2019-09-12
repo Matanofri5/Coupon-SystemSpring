@@ -21,5 +21,7 @@ public interface CompanyService {
 
 	void setCompany(Company company);
 
+	List<Coupon> getAllCompanyCoupons(long company_id) throws Exception;
+
 
 }
