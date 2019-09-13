@@ -20,8 +20,6 @@ import spring.repository.IncomeRepository;
 @Service
 public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 
-
-	private long company_id;
 	
 	@Autowired
 	private CompanyRepository companyRepository;
@@ -64,7 +62,7 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 			income.setAmount(100.0);
 			income.setDescription(IncomeType.COMPANY_NEW_COUPON);
 			income.setDate((Date) DateUtils.getCurrentDate());
-			income.setName("Company " + company.getCompanyName() + " buy coupon "+ coupon.getTitle());
+			income.setName("Company " + company.getCompanyName());
 			incomeService.storeIncome(income);
 		}else {
 			throw new Exception("The title " + coupon.getTitle() +" already exist, please try another title");
@@ -81,7 +79,7 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 		income.setAmount(10.0);
 		income.setDescription(IncomeType.COMPANY_UPDATE_COUPON);
 		income.setDate((Date) DateUtils.getCurrentDate());
-		income.setName("Company " + company.getCompanyName() + " buy coupon "+ coupon.getTitle());
+		income.setName("Company " + company.getCompanyName());
 		incomeService.storeIncome(income);
 	}
 	

@@ -129,7 +129,7 @@ public class AdminController {
 		} else if (session != null) {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {
-				((AdminServiceImpl) session.getFacade()).companyById(id);
+				return ((AdminServiceImpl) session.getFacade()).companyById(id);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -228,8 +228,7 @@ public class AdminController {
 		} else if (session != null) {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {
-				((AdminServiceImpl) session.getFacade()).customerById(id);
-				System.out.println(id);
+				return ((AdminServiceImpl) session.getFacade()).customerById(id);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}

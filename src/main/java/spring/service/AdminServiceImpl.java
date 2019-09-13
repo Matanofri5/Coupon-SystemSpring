@@ -13,6 +13,7 @@ import spring.exceptions.CustomerAlreadyExistsException;
 import spring.exceptions.DoesntExistException;
 import spring.models.ClientType;
 import spring.models.Company;
+import spring.models.Coupon;
 import spring.models.Customer;
 import spring.models.Income;
 import spring.repository.CompanyRepository;
@@ -23,8 +24,8 @@ import spring.repository.IncomeRepository;
 @Service
 public class AdminServiceImpl implements AdminService, CouponClientFacade {
 
-//	@Autowired
-//	private CouponRepository couponRepository;
+	@Autowired
+	private CouponRepository couponRepository;
 		
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -65,6 +66,7 @@ public class AdminServiceImpl implements AdminService, CouponClientFacade {
 				throw new DoesntExistException("This company doesn't exist, please try another one");
 			}
 		companyRepository.deleteById(id);
+		
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
