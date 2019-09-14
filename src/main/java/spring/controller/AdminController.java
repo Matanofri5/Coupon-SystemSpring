@@ -242,4 +242,60 @@ public class AdminController {
 				HttpStatus.OK);
 		return allIncome;
 	}
+	
+	@GetMapping("/viewAllIncome/{token}")
+	public ResponseEntity<List<Income>> viewAllIncome(@PathVariable String token) throws Exception {
+		Session session = exists(token);
+		if (session == null) {
+			throw new Exception("Something went wrong with the session !!");
+		} else if (session != null) {
+			session.setLastAccesed(System.currentTimeMillis());
+			try {
+				if (incomeService.allIncome() != null) {
+					ResponseEntity<List<Income>> result = new ResponseEntity<List<Income>>(incomeService.allIncome(),HttpStatus.OK);
+					return result;
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return null;
+	}
+	
+	
+	@GetMapping("/viewIncomeByCompanyId/{companyId}/{token}")
+	public List<Income> viewIncomeByCompanyId(@PathVariable long companyId, @PathVariable String token)
+			throws Exception {
+		Session session = exists(token);
+		if (session == null) {
+			throw new Exception("Something went wrong with the session !!");
+		} else if (session != null) {
+			session.setLastAccesed(System.currentTimeMillis());
+			try {
+				return incomeService.viewIncomeByCompany(companyId);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return null;
+	}
+	
+	
+	@GetMapping("/viewIncomeByCustomerId/{customerId}/{token}")
+	public List<Income> viewIncomeByCustomerId(@PathVariable long customerId, @PathVariable String token)
+			throws Exception {
+		Session session = exists(token);
+		if (session == null) {
+			throw new Exception("Something went wrong with the session !!");
+		} else if (session != null) {
+			session.setLastAccesed(System.currentTimeMillis());
+			try {
+				return incomeService.viewIncomeByCustomer(customerId);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return null;
+	}
+	
 }

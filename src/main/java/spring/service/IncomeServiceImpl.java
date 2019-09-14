@@ -28,14 +28,25 @@ public class IncomeServiceImpl implements IncomeService{
 	}
 	
 
+	@Override
+	public List<Income> viewIncomeByCustomer(long customerId) throws Exception{
+		try {
+			List<Income> allIncomesByCustomer = incomeRepository.findAllByClientId(customerId);
+			return allIncomesByCustomer;
+		} catch (Exception e) {
+			throw new Exception("Fialed to Get all incomes by customer " + customerId);
+		}
+	}
 	
-//	public List<Income> viewIncomeByCustomer(long customerId){
-//		
-//	}
-	
-//	public List<Income> viewIncomeByCompany(long companyId){
-//		
-//	}
+	@Override
+	public List<Income> viewIncomeByCompany(long companyId) throws Exception{
+		try {
+			List<Income> allIncomesByCompany = incomeRepository.findAllByClientId(companyId);
+			return allIncomesByCompany;
+		} catch (Exception e) {
+			throw new Exception("Fialed to Get all incomes by company " + companyId);
+		}
+	}
 	
 	
 }

@@ -17,13 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jayway.jsonpath.internal.Path;
+
 import spring.Session;
 import spring.models.Company;
 import spring.models.Coupon;
+import spring.models.Income;
 import spring.repository.CouponRepository;
 import spring.service.AdminServiceImpl;
 import spring.service.CompanyService;
 import spring.service.CompanyServiceImpl;
+import spring.service.IncomeService;
+import spring.service.IncomeServiceImpl;
 
 @RestController
 @RequestMapping("/company")
@@ -34,6 +39,9 @@ public class CompanyController {
 
 	@Autowired
 	private CouponRepository couponRepository;
+	
+	@Autowired
+	private IncomeService incomeService;
 
 	@Autowired
 	private Map<String, Session> tokens;
@@ -134,14 +142,22 @@ public class CompanyController {
 		}
 		return null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@GetMapping("/viewIncomeByCompanyId/{companyId}/{token}")
+	public List<Income> viewIncomeByCompanyId(@PathVariable long companyId, @PathVariable String token)
+			throws Exception {
+		Session session = exists(token);
+		if (session == null) {
+			throw new Exception("Something went wrong with the session !!");
+		} else if (session != null) {
+			session.setLastAccesed(System.currentTimeMillis());
+			try {
+				return incomeService.viewIncomeByCompany(companyId);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return null;
+	}
+
 }

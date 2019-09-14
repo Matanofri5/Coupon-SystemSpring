@@ -62,6 +62,7 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 			coupon.setAmount(coupon.getAmount()-1);
 			
 			Income income = new Income();
+			income.setClientId(this.customer.getId());
 			income.setAmount(coupon.getAmount());
 			income.setDate((Date) DateUtils.getCurrentDate());
 			income.setDescription(IncomeType.CUSTOMER_PURCHASE);

@@ -24,7 +24,11 @@ public class Income {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	private long incomeId;
+	
+	@Basic(optional = false)
+	@Column(nullable = false, name="clientId")
+	private long clientId;
 
 	@Basic(optional = false)
 	@Column(nullable = false, name="name")

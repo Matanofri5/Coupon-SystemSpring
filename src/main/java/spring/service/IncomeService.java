@@ -10,5 +10,9 @@ public interface IncomeService {
 
 	List<Income> allIncome();
 
+	List<Income> viewIncomeByCustomer(long customerId) throws Exception;
+
+	List<Income> viewIncomeByCompany(long companyId) throws Exception;
+
 
 }

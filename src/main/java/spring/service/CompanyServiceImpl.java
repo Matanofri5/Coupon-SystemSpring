@@ -59,6 +59,7 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 			comp.getCoupons().add(coupon);
 			companyRepository.save(comp);
 			Income income = new Income();
+			income.setClientId(this.company.getId());
 			income.setAmount(100.0);
 			income.setDescription(IncomeType.COMPANY_NEW_COUPON);
 			income.setDate((Date) DateUtils.getCurrentDate());
@@ -76,6 +77,7 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 		coupon.setPrice(price);
 		couponRepository.save(coupon);
 		Income income = new Income();
+		income.setClientId(this.company.getId());
 		income.setAmount(10.0);
 		income.setDescription(IncomeType.COMPANY_UPDATE_COUPON);
 		income.setDate((Date) DateUtils.getCurrentDate());
