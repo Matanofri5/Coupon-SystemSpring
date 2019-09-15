@@ -99,7 +99,7 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 //		List<Coupon> coupons = company.getCoupons();
 //		for (Coupon coupon : coupons) {
 //			couponRepository.deleteAll(company.getCoupons());
-		}
+//		}
 	}
 
 	@Override
