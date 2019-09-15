@@ -11,6 +11,7 @@ import spring.exceptions.CouponNotAvailableException;
 import spring.models.ClientType;
 import spring.models.Company;
 import spring.models.Coupon;
+import spring.models.CouponType;
 import spring.models.Customer;
 import spring.models.Income;
 import spring.models.IncomeType;
@@ -25,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 
 	@Autowired
 	private CouponRepository couponRepository;
-	
+
 	@Autowired
 	private IncomeService incomeService;
 
@@ -43,24 +44,22 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 			if (!couponRepository.existsById(couponId)) {
 				throw new CouponNotAvailableException("This coupon doesn't exist, please try another one !");
 			}
-			
+
 			Coupon coupon = couponRepository.findById((long) couponId).get();
-			
+
 			if (coupon.getAmount() <= 0) {
 				throw new CouponNotAvailableException("Unable to purache coupon with 0 amount");
 			}
-//			if (coupon.getEndDate().getTime() <= coupon.getStartDate().getTime()) {
-//				throw new CouponNotAvailableException("This coupon is out of stock");
-//			}
-			
-			
-			
+			// if (coupon.getEndDate().getTime() <= coupon.getStartDate().getTime()) {
+			// throw new CouponNotAvailableException("This coupon is out of stock");
+			// }
+
 			couponRepository.save(coupon);
 			Customer customer = customerRepository.findById(this.customer.getId()).get();
 			customer.getCoupons().add(coupon);
 			customerRepository.save(customer);
-			coupon.setAmount(coupon.getAmount()-1);
-			
+			coupon.setAmount(coupon.getAmount() - 1);
+
 			Income income = new Income();
 			income.setClientId(this.customer.getId());
 			income.setAmount(coupon.getAmount());
@@ -68,28 +67,58 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 			income.setDescription(IncomeType.CUSTOMER_PURCHASE);
 			income.setName("customer " + customer.getCustomerName());
 			incomeService.storeIncome(income);
-			
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return customer;
 	}
-	
-	
-	
-	public List<Coupon> getAllCustomerPurchases(long customer_id) throws Exception{
+
+	@Override
+	public List<Coupon> getAllCustomerPurchases(long customer_id) throws Exception {
 		Customer customer = customerRepository.getOne(customer_id);
-		if (customer!=null) {
-			List<Coupon>coupons = customer.getCoupons();
-			if (coupons!=null) {
+		if (customer != null) {
+			List<Coupon> coupons = customer.getCoupons();
+			if (coupons != null) {
 				return coupons;
-			}else {
+			} else {
 				throw new CouponNotAvailableException("This customer doesn't have any coupons");
 			}
-			}else {
-				throw new Exception("This customer doesn't exist");
+		} else {
+			throw new Exception("This customer doesn't exist");
+		}
+	}
+
+	@Override
+	public List<Coupon> couponByType(CouponType couponType) throws Exception {
+		List<Coupon> allCustomercoupons = getAllCustomerPurchases(this.customer.getId());
+		List<Coupon> couponsByType = couponRepository.findByType(couponType);
+		try {
+			for (Coupon coupon : allCustomercoupons) {
+				if (coupon.getType().equals(couponsByType)) {
+					couponsByType.add(coupon);
+				}
 			}
+		} catch (Exception e) {
+			System.out.println("Failed to get all coupons by type " + e.getMessage());
+		}
+		return couponsByType;
+	}
+
+	@Override
+	public List<Coupon> couponByPrice(double price) throws Exception {
+		List<Coupon> allCustomerCoupons = getAllCustomerPurchases(this.customer.getId());
+		List<Coupon> couponsByPrice = couponRepository.findByPriceLessThan(price);
+		try {
+			for (Coupon coupon : allCustomerCoupons) {
+				if (coupon.getPrice() <= price) {
+					couponsByPrice.add(coupon);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Failed to get all coupons by price " + e.getMessage());
+		}
+		return couponsByPrice;
 	}
 
 	@Override

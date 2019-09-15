@@ -69,7 +69,12 @@ public class AdminController {
 				Company company = null;
 				company = adminService.companyById(id);
 				if (company != null) {
-					((AdminServiceImpl) session.getFacade()).deleteCompany(id);
+					try {
+						((AdminServiceImpl) session.getFacade()).deleteCompany(id);
+						System.out.println("Admin successfully deleted company " + id);
+					} catch (Exception e) {
+						e.getMessage();
+					}
 				}
 			} catch (Exception e) {
 				System.err.println("Failed to delete company, please insert another id");

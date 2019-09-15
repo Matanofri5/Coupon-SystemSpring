@@ -22,11 +22,13 @@ import com.jayway.jsonpath.internal.Path;
 import spring.Session;
 import spring.models.Company;
 import spring.models.Coupon;
+import spring.models.CouponType;
 import spring.models.Income;
 import spring.repository.CouponRepository;
 import spring.service.AdminServiceImpl;
 import spring.service.CompanyService;
 import spring.service.CompanyServiceImpl;
+import spring.service.CustomerServiceImpl;
 import spring.service.IncomeService;
 import spring.service.IncomeServiceImpl;
 
@@ -91,8 +93,8 @@ public class CompanyController {
 		return null;
 	}
 
-	@DeleteMapping("/deleteCoupon/{id}/{token}")
-	public void deleteCoupon(@PathVariable long id, @PathVariable String token) throws Exception {
+	@DeleteMapping("/deleteCoupon/{couponId}/{token}")
+	public void deleteCoupon(@PathVariable long couponId, @PathVariable String token) throws Exception {
 		Session session = exists(token);
 		if (session == null) {
 			throw new Exception("Something went wrong with the session !!");
@@ -100,12 +102,12 @@ public class CompanyController {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {
 				Coupon coupon = null;
-				coupon = couponRepository.findById(id).get();
+				coupon = couponRepository.findById(couponId).get();
 				if (coupon != null) {
-					((CompanyServiceImpl) session.getFacade()).deleteCoupon(id);
+					((CompanyServiceImpl) session.getFacade()).deleteCoupon(couponId);
 				}
 			} catch (Exception e) {
-				System.out.println("This company id " + id + " doesn't exist, please try another id");
+				System.out.println("The coupon id " + couponId + " doesn't exist, please try another id");
 			}
 		}
 	}
@@ -143,6 +145,62 @@ public class CompanyController {
 		return null;
 	}
 
+	@GetMapping("/getCompanyByCouponType/{couponType}/{token}")
+	public List<Coupon> getCompanyByCouponType(@PathVariable CouponType couponType, @PathVariable String token)
+			throws Exception {
+		Session session = exists(token);
+		if (session == null) {
+			throw new Exception("Something went wrong with the session !!");
+		} else if (session != null) {
+			session.setLastAccesed(System.currentTimeMillis());
+			try {
+				return ((CompanyServiceImpl) session.getFacade()).couponByCouponType(couponType);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return null;
+	}
+	
+	
+	@GetMapping("/getCompanyByPrice/{price}/{token}")
+	public List<Coupon> getCompanyByPrice(@PathVariable double price, @PathVariable String token)
+			throws Exception {
+		Session session = exists(token);
+		if (session == null) {
+			throw new Exception("Something went wrong with the session !!");
+		} else if (session != null) {
+			session.setLastAccesed(System.currentTimeMillis());
+			try {
+				return ((CompanyServiceImpl) session.getFacade()).couponByPrice(price);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return null;
+	}
+	
+	@GetMapping("/getCompanyByEndDate/{endDate}/{token}")
+	public List<Coupon> getCompanyByendDate(@PathVariable Date endDate, @PathVariable String token)
+			throws Exception {
+		Session session = exists(token);
+		if (session == null) {
+			throw new Exception("Something went wrong with the session !!");
+		} else if (session != null) {
+			session.setLastAccesed(System.currentTimeMillis());
+			try {
+				return ((CompanyServiceImpl) session.getFacade()).couponByDate(endDate);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
 	@GetMapping("/viewIncomeByCompanyId/{companyId}/{token}")
 	public List<Income> viewIncomeByCompanyId(@PathVariable long companyId, @PathVariable String token)
 			throws Exception {

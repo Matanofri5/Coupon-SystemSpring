@@ -2,8 +2,11 @@ package spring.service;
 
 import java.sql.Date;
 import java.util.List;
+
+import spring.exceptions.CouponNotAvailableException;
 import spring.models.Company;
 import spring.models.Coupon;
+import spring.models.CouponType;
 
 public interface CompanyService {
 
@@ -17,11 +20,17 @@ public interface CompanyService {
 
 	Company companyById(long id);
 
-	void deleteCoupon(long id);
+	void deleteCoupon(long couponId) throws CouponNotAvailableException;
 
 	void setCompany(Company company);
 
 	List<Coupon> getAllCompanyCoupons(long company_id) throws Exception;
+
+	List<Coupon> couponByPrice(double price) throws Exception;
+
+	List<Coupon> couponByCouponType(CouponType couponType) throws Exception;
+
+	List<Coupon> couponByDate(Date endDate) throws Exception;
 
 
 }
