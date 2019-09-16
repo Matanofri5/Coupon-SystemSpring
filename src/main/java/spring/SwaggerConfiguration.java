@@ -21,3 +21,5 @@ public class SwaggerConfiguration {
           .build();                                           
     }
 }
+// This address is for swagger 
+//    http://localhost:8080/swagger-ui.html#/
