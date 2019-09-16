@@ -1,5 +1,6 @@
 package spring.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -65,10 +66,15 @@ public class AdminServiceImpl implements AdminService, CouponClientFacade {
 			if (!companyRepository.existsById(id)) {
 				throw new DoesntExistException("This company doesn't exist, please try another one");
 			}
-		companyRepository.deleteById(id);
-		
+			long i = 0;
+			Company company = companyRepository.getOne(id);
+			List<Coupon> coupons = new ArrayList<Coupon>(company.getCoupons());
+			companyRepository.deleteById(id);
+			for(i=0; i<coupons.size(); i++) {
+				couponRepository.delete(coupons.get((int) i));
+			}
 		}catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("Failed to delete company " + id + e.getMessage());
 		}
 	}
 	
@@ -117,7 +123,20 @@ public class AdminServiceImpl implements AdminService, CouponClientFacade {
 	
 	@Override
 	public void deleteCustomer(long id) {
-		customerRepository.deleteById(id);
+		try {
+			if (!customerRepository.existsById(id)) {
+				throw new DoesntExistException("This customer doesn't exist, please try another one");
+			}
+			long i = 0;
+			Customer customer = customerRepository.getOne(id);
+			List<Coupon> coupons = new ArrayList<Coupon>(customer.getCoupons());
+			customerRepository.deleteById(id);
+			for(i=0; i<coupons.size(); i++) {
+				couponRepository.delete(coupons.get((int) i));
+			}
+		}catch (Exception e) {
+			System.out.println("Failed to delete customer " + id + e.getMessage());
+		}
 	}
 	
 	@Override
@@ -128,6 +147,7 @@ public class AdminServiceImpl implements AdminService, CouponClientFacade {
 	@Override
 	public Customer customerById(long id) {
 		return customerRepository.findById(id).get();
+		
 	}
 	
 	@Override

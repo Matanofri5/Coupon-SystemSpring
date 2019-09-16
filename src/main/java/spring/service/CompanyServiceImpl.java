@@ -13,10 +13,12 @@ import spring.models.ClientType;
 import spring.models.Company;
 import spring.models.Coupon;
 import spring.models.CouponType;
+import spring.models.Customer;
 import spring.models.Income;
 import spring.models.IncomeType;
 import spring.repository.CompanyRepository;
 import spring.repository.CouponRepository;
+import spring.repository.CustomerRepository;
 import spring.repository.IncomeRepository;
 
 @Service
@@ -27,13 +29,15 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 
 	@Autowired
 	private CouponRepository couponRepository;
+	
+	@Autowired 
+	private CustomerRepository customerRepository;
 
 	@Autowired
 	private IncomeRepository incomeRepository;
 
-	// @Autowired
-	// private IncomeService incomeService;
-
+	private Customer customer;
+	
 	private Company company;
 
 	@Override
@@ -93,13 +97,20 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 		if (!couponRepository.existsById(couponId)) {
 			throw new CouponNotAvailableException("This coupon id doesn't exist in DataBase");
 		}
+//		couponRepository.deleteById(couponId);
+		long i = 0;
+		Company company = companyRepository.getOne(this.company.getId());
+		List<Coupon> coupons = new ArrayList<Coupon>(company.getCoupons());
 		couponRepository.deleteById(couponId);
-	
-//		Company company = companyRepository.getOne(this.company.getId());
-//		List<Coupon> coupons = company.getCoupons();
-//		for (Coupon coupon : coupons) {
-//			couponRepository.deleteAll(company.getCoupons());
-//		}
+
+		for (i=0; i<coupons.size(); i++) {		
+			couponRepository.delete(coupons.get((int) i));
+		}
+		Customer customer = customerRepository.getOne(this.customer.getId());
+		List<Coupon>coupons2 = new ArrayList<Coupon>(customer.getCoupons());
+		for (i=0; i<coupons2.size(); i++) {
+			couponRepository.delete(coupons2.get((int) i));		
+		}
 	}
 
 	@Override

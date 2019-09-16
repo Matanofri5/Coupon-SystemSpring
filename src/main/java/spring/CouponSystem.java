@@ -1,5 +1,8 @@
 package spring;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -30,12 +33,16 @@ public class CouponSystem {
 
 	@Autowired
 	private CustomerRepository customerRepo;
+	
+//	@Autowired
+//	private CouponsThread couponsThread;
 
-	// @PostConstruct
-	// here will be couponsThread
-
-	// @PreDestroy
-	// here will be couponsThread
+//	 @PostConstruct
+//	 public void init() {
+//		 couponsThread
+//	 }
+//
+//	 @PreDestroy
 
 	public CouponClientFacade login(String name, String password, ClientType clientType) throws couponSystemException {
 		switch (clientType) {
