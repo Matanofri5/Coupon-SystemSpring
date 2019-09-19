@@ -107,7 +107,7 @@ public class CompanyController {
 					((CompanyServiceImpl) session.getFacade()).deleteCoupon(couponId);
 				}
 			} catch (Exception e) {
-				System.out.println("The coupon id " + couponId + " doesn't exist, please try another id");
+				System.out.println("The coupon id " + couponId + " doesn't exist, please try another id" + e.getMessage());
 			}
 		}
 	}

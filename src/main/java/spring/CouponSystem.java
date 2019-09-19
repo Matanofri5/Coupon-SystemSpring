@@ -34,15 +34,18 @@ public class CouponSystem {
 	@Autowired
 	private CustomerRepository customerRepo;
 	
-//	@Autowired
-//	private CouponsThread couponsThread;
+	@Autowired
+	private CouponsThread couponsThread;
 
-//	 @PostConstruct
-//	 public void init() {
-//		 couponsThread
-//	 }
-//
-//	 @PreDestroy
+	 @PostConstruct
+	 public void init() {
+		 couponsThread.startThread();
+	 }
+
+	 @PreDestroy
+	 public void destroy() {
+		 couponsThread.stopThread();
+	 }
 
 	public CouponClientFacade login(String name, String password, ClientType clientType) throws couponSystemException {
 		switch (clientType) {

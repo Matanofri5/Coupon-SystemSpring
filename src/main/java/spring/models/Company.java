@@ -23,13 +23,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="company")
+@Table(name="COMPANY")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Company implements Serializable{
+public class Company{
 
-	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

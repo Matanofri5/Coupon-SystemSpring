@@ -98,18 +98,25 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 			throw new CouponNotAvailableException("This coupon id doesn't exist in DataBase");
 		}
 //		couponRepository.deleteById(couponId);
-		long i = 0;
-		Company company = companyRepository.getOne(this.company.getId());
-		List<Coupon> coupons = new ArrayList<Coupon>(company.getCoupons());
-		couponRepository.deleteById(couponId);
-
-		for (i=0; i<coupons.size(); i++) {		
-			couponRepository.delete(coupons.get((int) i));
-		}
-		Customer customer = customerRepository.getOne(this.customer.getId());
-		List<Coupon>coupons2 = new ArrayList<Coupon>(customer.getCoupons());
-		for (i=0; i<coupons2.size(); i++) {
-			couponRepository.delete(coupons2.get((int) i));		
+//		long i = 0;
+//		Company company = companyRepository.getOne(this.company.getId());
+//		List<Coupon> coupons = new ArrayList<Coupon>(company.getCoupons());
+//		couponRepository.deleteById(couponId);
+//
+//		for (i=0; i<coupons.size(); i++) {		
+//			couponRepository.delete(coupons.get((int) i));
+//		}
+//		Customer customer = customerRepository.getOne(this.customer.getId());
+//		List<Coupon>coupons2 = new ArrayList<Coupon>(customer.getCoupons());
+//		couponRepository.deleteById(couponId);
+//
+//		for (i=0; i<coupons2.size(); i++) {
+//			couponRepository.delete(coupons2.get((int) i));		
+//		}
+		
+		Coupon coupon = couponRepository.getOne(couponId);
+		if (coupon!=null) {
+			couponRepository.deleteById(couponId);
 		}
 	}
 
