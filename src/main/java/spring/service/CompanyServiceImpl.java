@@ -29,15 +29,18 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 
 	@Autowired
 	private CouponRepository couponRepository;
-	
-	@Autowired 
+
+	@Autowired
 	private CustomerRepository customerRepository;
+
+	@Autowired
+	private CustomerServiceImpl customerServiceImpl;
 
 	@Autowired
 	private IncomeRepository incomeRepository;
 
 	private Customer customer;
-	
+
 	private Company company;
 
 	@Override
@@ -97,27 +100,11 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 		if (!couponRepository.existsById(couponId)) {
 			throw new CouponNotAvailableException("This coupon id doesn't exist in DataBase");
 		}
-//		couponRepository.deleteById(couponId);
-//		long i = 0;
-//		Company company = companyRepository.getOne(this.company.getId());
-//		List<Coupon> coupons = new ArrayList<Coupon>(company.getCoupons());
-//		couponRepository.deleteById(couponId);
-//
-//		for (i=0; i<coupons.size(); i++) {		
-//			couponRepository.delete(coupons.get((int) i));
-//		}
-//		Customer customer = customerRepository.getOne(this.customer.getId());
-//		List<Coupon>coupons2 = new ArrayList<Coupon>(customer.getCoupons());
-//		couponRepository.deleteById(couponId);
-//
-//		for (i=0; i<coupons2.size(); i++) {
-//			couponRepository.delete(coupons2.get((int) i));		
-//		}
-		
-		Coupon coupon = couponRepository.getOne(couponId);
-		if (coupon!=null) {
-			couponRepository.deleteById(couponId);
-		}
+		List<Coupon> companyCoupons = couponRepository.findAllById(this.company.getId());
+		this.company.setCoupons(companyCoupons);
+		companyRepository.save(this.company);
+		customerServiceImpl.deleteCoupon(couponId);
+		couponRepository.deleteById(couponId);
 	}
 
 	@Override

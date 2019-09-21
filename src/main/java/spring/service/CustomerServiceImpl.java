@@ -120,6 +120,17 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 		}
 		return couponsByPrice;
 	}
+	
+	
+	public void deleteCoupon(long couponId) throws CouponNotAvailableException {
+		if (!couponRepository.existsById(couponId)) {
+			throw new CouponNotAvailableException("This coupon id doesn't exist in DataBase");
+		}
+		List<Coupon> customerCoupons = couponRepository.findAllById(this.customer.getId());
+		this.customer.setCoupons(customerCoupons);
+		customerRepository.save(this.customer);
+	}
+	
 
 	@Override
 	public CouponClientFacade login(String name, String password, ClientType clientType) {

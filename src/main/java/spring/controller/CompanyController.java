@@ -107,7 +107,7 @@ public class CompanyController {
 					((CompanyServiceImpl) session.getFacade()).deleteCoupon(couponId);
 				}
 			} catch (Exception e) {
-				System.out.println("The coupon id " + couponId + " doesn't exist, please try another id" + e.getMessage());
+				System.out.println("Failed to delete coupon " + couponId + e.getMessage());
 			}
 		}
 	}
@@ -180,7 +180,7 @@ public class CompanyController {
 		return null;
 	}
 	
-	@GetMapping("/getCompanyByEndDate/{endDate}/{token}")
+	@GetMapping(value="/getCompanyByEndDate/{endDate}/{token}")
 	public List<Coupon> getCompanyByendDate(@PathVariable Date endDate, @PathVariable String token)
 			throws Exception {
 		Session session = exists(token);
@@ -218,4 +218,5 @@ public class CompanyController {
 		return null;
 	}
 
+	
 }

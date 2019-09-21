@@ -1,10 +1,21 @@
 package spring;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 
 public class DateUtils {
+	
+	
+	
+	
+	private static LocalDate lDate;
+	
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	
+	
+	
 	/**
 	 * This method return current date .
 	 * @return date
@@ -62,5 +73,10 @@ public class DateUtils {
 		Date date = java.sql.Date.valueOf(localDate);
 		
 		return date;
+	}
+	
+	public static LocalDate convertDateToString(String endDate) {
+		lDate = LocalDate.parse(endDate, formatter);
+		return lDate;
 	}
 }

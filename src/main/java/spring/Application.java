@@ -1,31 +1,23 @@
 package spring;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan({ "spring" })
 public class Application {
 
-	public static void main (String[] args) {
+	public static void main(String[] args) {
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(Application.class, args);
 		System.out.println("Starting SPRING Application !!!!!!");
-//		applicationContext.close();
+		// applicationContext.close();
 	}
-	
-	
-	@Bean
-	public Map<String, Session> tokens(){
-		return new HashMap<String,Session>();
-	}
-	
-	
-	
+
+	// @Bean
+	// public Map<String, Session> tokens(){
+	// return new HashMap<String,Session>();
+	// }
+
 }
