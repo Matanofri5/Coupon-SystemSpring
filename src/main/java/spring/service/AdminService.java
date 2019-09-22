@@ -3,6 +3,7 @@ package spring.service;
 import java.util.List;
 
 import spring.models.Company;
+import spring.models.Coupon;
 import spring.models.Customer;
 import spring.models.Income;
 
@@ -33,5 +34,7 @@ public interface AdminService {
 	boolean checkIfCustomerNameAlreadyExists(String customerName);
 
 	List<Income> allIncome();
+
+	List<Coupon> allCoupons();
 
 }

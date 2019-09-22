@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import spring.Session;
 import spring.models.Company;
+import spring.models.Coupon;
 import spring.models.Customer;
 import spring.models.Income;
 import spring.service.AdminService;
@@ -303,4 +304,24 @@ public class AdminController {
 		return null;
 	}
 	
+	
+	@GetMapping("/getAllCoupons/{token}")
+	public ResponseEntity<List<Coupon>> getAllCoupons(@PathVariable String token) throws Exception {
+		Session session = exists(token);
+		if (session == null) {
+			throw new Exception("Something went wrong with the session !!");
+		} else if (session != null) {
+			session.setLastAccesed(System.currentTimeMillis());
+			try {
+				if (((AdminServiceImpl) session.getFacade()).allCoupons() != null) {
+					ResponseEntity<List<Coupon>> result = new ResponseEntity<List<Coupon>>(
+							adminService.allCoupons(), HttpStatus.OK);
+					return result;
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return null;
+	}
 }

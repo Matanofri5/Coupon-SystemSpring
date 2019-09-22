@@ -161,4 +161,8 @@ public class AdminServiceImpl implements AdminService, CouponClientFacade {
 		return new AdminServiceImpl();
 	}
 
+	@Override
+	public List<Coupon> allCoupons(){
+		return couponRepository.findAll();
+	}
 }
