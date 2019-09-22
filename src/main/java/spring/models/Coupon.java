@@ -34,6 +34,7 @@ public class Coupon{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true)
 	private long id;
 	
 	@Basic(optional = false)
@@ -72,7 +73,25 @@ public class Coupon{
 	private CouponType type;
 	
 	
+//	public Coupon(long id, String title, long startDate, long endDate, int amount, CouponType type, String message,
+//			double price, String image) {
+//		this.id = id;
+//		this.title = title;
+//		setStartDate(startDate);
+//		setEndDate(endDate);
+//		this.amount = amount;
+//		this.type = type;
+//		this.message = message;
+//		this.price = price;
+//		this.image = image;
+//	}
+//	
+//	public void setStartDate(long timestamp) {
+//		this.startDate = new Date(timestamp);
+//	}
+//	public void setEndDate(long timestamp) {
+//		this.endDate = new Date(timestamp);
+//	}
 
-	
 	
 }

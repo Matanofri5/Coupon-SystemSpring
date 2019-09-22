@@ -44,15 +44,17 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 			if (!couponRepository.existsById(couponId)) {
 				throw new CouponNotAvailableException("This coupon doesn't exist, please try another one !");
 			}
-
+			
 			Coupon coupon = couponRepository.findById((long) couponId).get();
 
 			if (coupon.getAmount() <= 0) {
-				throw new CouponNotAvailableException("Unable to purache coupon with 0 amount");
+				throw new CouponNotAvailableException("This coupon is out of stock !!");
 			}
-			// if (coupon.getEndDate().getTime() <= coupon.getStartDate().getTime()) {
-			// throw new CouponNotAvailableException("This coupon is out of stock");
-			// }
+			
+			
+			 if (coupon.getEndDate().getTime() <= coupon.getStartDate().getTime()) {
+			 throw new CouponNotAvailableException("This coupon has been expired");
+			 }
 
 			couponRepository.save(coupon);
 			Customer customer = customerRepository.findById(this.customer.getId()).get();
