@@ -124,31 +124,31 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 	}
 	
 	
-	public void deleteCoupon(long couponId) throws Exception {
-		
-			List<Coupon> coupons = getAllCustomerCoupons(this.customer.getId());
-			Coupon coupon = couponRepository.findById(couponId).get();
-			coupons.remove(coupon);
-			this.customer.setCoupons(coupons);
-
-			couponRepository.delete(coupon);
-		
-	}
-	
-	
-	public List<Coupon> getAllCustomerCoupons(long customer_id) throws Exception {
-		Customer customer = customerRepository.getOne(customer_id);
-		if (customer != null) {
-			List<Coupon> coupons = customer.getCoupons();
-			if (coupons != null) {
-				return coupons;
-			} else {
-				throw new CouponNotAvailableException("This custmer doesn't have any coupons");
-			}
-		} else {
-			throw new Exception("This customer doesn't exist");
-		}
-	}
+//	public void deleteCoupon(long couponId) throws Exception {
+//		
+//			List<Coupon> coupons = getAllCustomerCoupons(this.customer.getId());
+//			Coupon coupon = couponRepository.findById(couponId).get();
+//			coupons.remove(coupon);
+//			this.customer.setCoupons(coupons);
+//
+//			couponRepository.delete(coupon);
+//		
+//	}
+//	
+//	
+//	public List<Coupon> getAllCustomerCoupons(long customer_id) throws Exception {
+//		Customer customer = customerRepository.getOne(customer_id);
+//		if (customer != null) {
+//			List<Coupon> coupons = customer.getCoupons();
+//			if (coupons != null) {
+//				return coupons;
+//			} else {
+//				throw new CouponNotAvailableException("This custmer doesn't have any coupons");
+//			}
+//		} else {
+//			throw new Exception("This customer doesn't exist");
+//		}
+//	}
 	
 	
 	@Override

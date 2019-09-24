@@ -94,8 +94,8 @@ public class CompanyController {
 		return null;
 	}
 
-	@DeleteMapping("/deleteCoupon/{couponId}/{token}")
-	public void deleteCoupon(@PathVariable long couponId, @PathVariable String token) throws Exception {
+	@DeleteMapping("/deleteCoupon/{coupon_id}/{token}")
+	public void deleteCoupon(@PathVariable long coupon_id, @PathVariable String token) throws Exception {
 		Session session = exists(token);
 		if (session == null) {
 			throw new Exception("Something went wrong with the session !!");
@@ -103,13 +103,12 @@ public class CompanyController {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {
 				Coupon coupon = null;
-			//	companyService.deleteCoupon(couponId);
-				coupon = couponRepository.findById(couponId).get();
+				coupon = couponRepository.findById(coupon_id).get();
 				if (coupon != null) {
-					((CompanyServiceImpl) session.getFacade()).deleteCoupon(couponId);
+					((CompanyServiceImpl) session.getFacade()).deleteCoupon(coupon_id);
 				}
 			} catch (Exception e) {
-				System.out.println("Failed to delete coupon " + couponId + e.getMessage());
+				System.out.println("Failed to delete coupon " + coupon_id + e.getMessage());
 			}
 		}
 	}

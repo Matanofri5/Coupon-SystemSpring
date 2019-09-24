@@ -20,7 +20,7 @@ public interface CompanyService {
 
 	Company companyById(long id);
 
-	void deleteCoupon(long couponId) throws CouponNotAvailableException, Exception;
+	void deleteCoupon(long coupon_id) throws CouponNotAvailableException, Exception;
 
 	void setCompany(Company company);
 

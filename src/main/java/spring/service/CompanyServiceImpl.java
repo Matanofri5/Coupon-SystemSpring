@@ -96,12 +96,14 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 		income.setName("Company " + company.getCompanyName());
 		incomeRepository.save(income);
 	}
-
+	
+	
+	
 	@Override
-	public void deleteCoupon(long couponId) throws Exception {
-		if (!couponRepository.existsById(couponId)) {
-			throw new CouponNotAvailableException("This coupon id doesn't exist in DataBase");
-		}
+	public void deleteCoupon(long coupon_id) throws Exception {
+//		if (!couponRepository.existsById(couponId)) {
+//			throw new CouponNotAvailableException("This coupon id doesn't exist in DataBase");
+//		}
 		
 //		List<Coupon> coupons = getAllCompanyCoupons(this.company.getId());
 //		Coupon coupon = couponRepository.findById(couponId).get();
@@ -109,7 +111,15 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 //		this.company.setCoupons(coupons);
 //		couponRepository.delete(coupon);
 //		customerServiceImpl.deleteCoupon(couponId);
-		couponRepository.deleteById(couponId);
+
+		
+		Coupon coupon = couponRepository.getOne(coupon_id);
+		if (coupon!=null) {
+			couponRepository.delete(coupon);
+		}else {
+			throw new CouponNotAvailableException("This coupon id doesn't exist in DataBase");
+
+		}
 
 	}
 
