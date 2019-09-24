@@ -15,6 +15,8 @@ public class Application {
 		// applicationContext.close();
 	}
 
+	//delete from Book b where b.title=:title
+
 	// @Bean
 	// public Map<String, Session> tokens(){
 	// return new HashMap<String,Session>();

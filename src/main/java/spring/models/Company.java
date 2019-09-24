@@ -53,7 +53,7 @@ public class Company{
 	@Access(AccessType.PROPERTY)
 //	@JoinTable(name="company_coupons", joinColumns= {@JoinColumn(name="company_id", referencedColumnName="id")},
 //	inverseJoinColumns= {@JoinColumn(name="coupons_id", referencedColumnName="id")})
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	public List<Coupon> getCoupons(){
 		return coupons;
 	}

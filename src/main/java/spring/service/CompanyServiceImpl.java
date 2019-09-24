@@ -3,6 +3,8 @@ package spring.service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,14 +98,17 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 	}
 
 	@Override
-	public void deleteCoupon(long couponId) throws CouponNotAvailableException {
+	public void deleteCoupon(long couponId) throws Exception {
 		if (!couponRepository.existsById(couponId)) {
 			throw new CouponNotAvailableException("This coupon id doesn't exist in DataBase");
 		}
-		List<Coupon> companyCoupons = couponRepository.findAllById(this.company.getId());
-		this.company.setCoupons(companyCoupons);
-		companyRepository.save(this.company);
-		customerServiceImpl.deleteCoupon(couponId);
+		
+//		List<Coupon> coupons = getAllCompanyCoupons(this.company.getId());
+//		Coupon coupon = couponRepository.findById(couponId).get();
+//		coupons.remove(coupon);
+//		this.company.setCoupons(coupons);
+//		couponRepository.delete(coupon);
+//		customerServiceImpl.deleteCoupon(couponId);
 		couponRepository.deleteById(couponId);
 
 	}

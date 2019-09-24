@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,7 +46,7 @@ public class Customer{
 	@Access(AccessType.PROPERTY)
 //	@JoinTable(name="customer_coupons", joinColumns= {@JoinColumn(name="customer_id", referencedColumnName="id")},
 //	inverseJoinColumns= {@JoinColumn(name="coupons_id", referencedColumnName="id")})
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	public List<Coupon> getCoupons(){
 		return coupons;
 	}

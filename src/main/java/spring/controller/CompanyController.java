@@ -103,6 +103,7 @@ public class CompanyController {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {
 				Coupon coupon = null;
+			//	companyService.deleteCoupon(couponId);
 				coupon = couponRepository.findById(couponId).get();
 				if (coupon != null) {
 					((CompanyServiceImpl) session.getFacade()).deleteCoupon(couponId);
