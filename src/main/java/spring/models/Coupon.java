@@ -26,7 +26,7 @@ public class Coupon{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true)
+//	@Column(unique=true)
 	private long id;
 	
 	@Basic(optional = false)
