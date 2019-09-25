@@ -144,7 +144,7 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 	}
 
 	@Override
-	public List<Coupon> couponByCouponType(CouponType couponType) throws Exception {
+	public List<Coupon> getCouponsByCouponType(CouponType couponType) throws Exception {
 		List<Coupon> allCompanycoupons = getAllCompanyCoupons(this.company.getId());
 		List<Coupon> couponsByType = couponRepository.findByType(couponType);
 		try {
@@ -160,7 +160,7 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 	}
 
 	@Override
-	public List<Coupon> couponByPrice(double price) throws Exception {
+	public List<Coupon> getCouponsByPrice(double price) throws Exception {
 		List<Coupon> allCompanyCoupons = getAllCompanyCoupons(this.company.getId());
 		List<Coupon> couponsByPrice = couponRepository.findByPriceLessThan(price);
 		try {
@@ -176,7 +176,7 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 	}
 
 	@Override
-	public List<Coupon> couponByDate(Date endDate) throws Exception {
+	public List<Coupon> getCouponsByEndDate(Date endDate) throws Exception {
 		List<Coupon> allCompanyCoupons = getAllCompanyCoupons(this.company.getId());
 		List<Coupon> couponsByDate = couponRepository.findByEndDateBefore(endDate);
 		try {

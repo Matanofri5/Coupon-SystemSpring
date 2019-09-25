@@ -13,11 +13,11 @@ public interface CustomerService {
 
 	Customer purchaseCoupon(long couponId) throws CouponNotAvailableException;
 
-	List<Coupon> getAllCustomerPurchases(long customer_id) throws Exception;
+	List<Coupon> getCouponsByCouponType(CouponType couponType) throws Exception;
 
-	List<Coupon> couponByType(CouponType couponType) throws Exception;
+	List<Coupon> getCouponsByPrice(double price) throws Exception;
 
-	List<Coupon> couponByPrice(double price) throws Exception;
+	List<Coupon> getAllCustomerCoupons(long customer_id) throws Exception;
 
 
 

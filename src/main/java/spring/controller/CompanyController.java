@@ -146,8 +146,8 @@ public class CompanyController {
 		return null;
 	}
 
-	@GetMapping("/getCompanyByCouponType/{couponType}/{token}")
-	public List<Coupon> getCompanyByCouponType(@PathVariable CouponType couponType, @PathVariable String token)
+	@GetMapping("/getCouponsByCouponType/{couponType}/{token}")
+	public List<Coupon> getCouponsByCouponType(@PathVariable CouponType couponType, @PathVariable String token)
 			throws Exception {
 		Session session = exists(token);
 		if (session == null) {
@@ -155,7 +155,7 @@ public class CompanyController {
 		} else if (session != null) {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {
-				return ((CompanyServiceImpl) session.getFacade()).couponByCouponType(couponType);
+				return ((CompanyServiceImpl) session.getFacade()).getCouponsByCouponType(couponType);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -164,8 +164,8 @@ public class CompanyController {
 	}
 	
 	
-	@GetMapping("/getCompanyByPrice/{price}/{token}")
-	public List<Coupon> getCompanyByPrice(@PathVariable double price, @PathVariable String token)
+	@GetMapping("/getCouponsByPrice/{price}/{token}")
+	public List<Coupon> getCouponsByPrice(@PathVariable double price, @PathVariable String token)
 			throws Exception {
 		Session session = exists(token);
 		if (session == null) {
@@ -173,7 +173,7 @@ public class CompanyController {
 		} else if (session != null) {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {
-				return ((CompanyServiceImpl) session.getFacade()).couponByPrice(price);
+				return ((CompanyServiceImpl) session.getFacade()).getCouponsByPrice(price);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -181,9 +181,9 @@ public class CompanyController {
 		return null;
 	}
 	
-	@GetMapping(value="/getCompanyByEndDate/{endDate}/{token}")
+	@GetMapping(value="/getCouponsByEndDate/{endDate}/{token}")
 //	@RequestMapping(value = "/getCompanyByEndDate/{endDate}/{token}", method =RequestMethod.GET, consumes="application/json")
-	public List<Coupon> getCompanyByendDate(@PathVariable Date endDate, @PathVariable String token)
+	public List<Coupon> getCouponsByEndDate(@PathVariable Date endDate, @PathVariable String token)
 			throws Exception {
 		Session session = exists(token);
 		if (session == null) {
@@ -191,7 +191,7 @@ public class CompanyController {
 		} else if (session != null) {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {
-				return ((CompanyServiceImpl) session.getFacade()).couponByDate(endDate);
+				return ((CompanyServiceImpl) session.getFacade()).getCouponsByEndDate(endDate);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}

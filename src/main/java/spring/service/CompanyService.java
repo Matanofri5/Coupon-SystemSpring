@@ -26,11 +26,11 @@ public interface CompanyService {
 
 	List<Coupon> getAllCompanyCoupons(long company_id) throws Exception;
 
-	List<Coupon> couponByPrice(double price) throws Exception;
+	List<Coupon> getCouponsByCouponType(CouponType couponType) throws Exception;
 
-	List<Coupon> couponByCouponType(CouponType couponType) throws Exception;
+	List<Coupon> getCouponsByPrice(double price) throws Exception;
 
-	List<Coupon> couponByDate(Date endDate) throws Exception;
+	List<Coupon> getCouponsByEndDate(Date endDate) throws Exception;
 
 
 }

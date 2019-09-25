@@ -2,14 +2,12 @@ package spring.service;
 
 import java.sql.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.CouponClientFacade;
 import spring.DateUtils;
 import spring.exceptions.CouponNotAvailableException;
 import spring.models.ClientType;
-import spring.models.Company;
 import spring.models.Coupon;
 import spring.models.CouponType;
 import spring.models.Customer;
@@ -44,17 +42,16 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 			if (!couponRepository.existsById(couponId)) {
 				throw new CouponNotAvailableException("This coupon doesn't exist, please try another one !");
 			}
-			
+
 			Coupon coupon = couponRepository.findById((long) couponId).get();
 
 			if (coupon.getAmount() <= 0) {
 				throw new CouponNotAvailableException("This coupon is out of stock !!");
 			}
-			
-			
-			 if (coupon.getEndDate().getTime() <= coupon.getStartDate().getTime()) {
-			 throw new CouponNotAvailableException("This coupon has been expired");
-			 }
+
+			if (coupon.getEndDate().getTime() <= coupon.getStartDate().getTime()) {
+				throw new CouponNotAvailableException("This coupon has been expired");
+			}
 
 			couponRepository.save(coupon);
 			Customer customer = customerRepository.findById(this.customer.getId()).get();
@@ -77,7 +74,7 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 	}
 
 	@Override
-	public List<Coupon> getAllCustomerPurchases(long customer_id) throws Exception {
+	public List<Coupon> getAllCustomerCoupons(long customer_id) throws Exception {
 		Customer customer = customerRepository.getOne(customer_id);
 		if (customer != null) {
 			List<Coupon> coupons = customer.getCoupons();
@@ -92,8 +89,8 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 	}
 
 	@Override
-	public List<Coupon> couponByType(CouponType couponType) throws Exception {
-		List<Coupon> allCustomercoupons = getAllCustomerPurchases(this.customer.getId());
+	public List<Coupon> getCouponsByCouponType(CouponType couponType) throws Exception {
+		List<Coupon> allCustomercoupons = getAllCustomerCoupons(this.customer.getId());
 		List<Coupon> couponsByType = couponRepository.findByType(couponType);
 		try {
 			for (Coupon coupon : allCustomercoupons) {
@@ -108,8 +105,8 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 	}
 
 	@Override
-	public List<Coupon> couponByPrice(double price) throws Exception {
-		List<Coupon> allCustomerCoupons = getAllCustomerPurchases(this.customer.getId());
+	public List<Coupon> getCouponsByPrice(double price) throws Exception {
+		List<Coupon> allCustomerCoupons = getAllCustomerCoupons(this.customer.getId());
 		List<Coupon> couponsByPrice = couponRepository.findByPriceLessThan(price);
 		try {
 			for (Coupon coupon : allCustomerCoupons) {
@@ -122,35 +119,7 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 		}
 		return couponsByPrice;
 	}
-	
-	
-//	public void deleteCoupon(long couponId) throws Exception {
-//		
-//			List<Coupon> coupons = getAllCustomerCoupons(this.customer.getId());
-//			Coupon coupon = couponRepository.findById(couponId).get();
-//			coupons.remove(coupon);
-//			this.customer.setCoupons(coupons);
-//
-//			couponRepository.delete(coupon);
-//		
-//	}
-//	
-//	
-//	public List<Coupon> getAllCustomerCoupons(long customer_id) throws Exception {
-//		Customer customer = customerRepository.getOne(customer_id);
-//		if (customer != null) {
-//			List<Coupon> coupons = customer.getCoupons();
-//			if (coupons != null) {
-//				return coupons;
-//			} else {
-//				throw new CouponNotAvailableException("This custmer doesn't have any coupons");
-//			}
-//		} else {
-//			throw new Exception("This customer doesn't exist");
-//		}
-//	}
-	
-	
+
 	@Override
 	public CouponClientFacade login(String name, String password, ClientType clientType) {
 		// TODO Auto-generated method stub

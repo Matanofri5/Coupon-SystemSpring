@@ -71,7 +71,7 @@ public class CustomerController {
 		} else if (session != null) {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {
-				return ((CustomerServiceImpl) session.getFacade()).getAllCustomerPurchases(customer_id);
+				return ((CustomerServiceImpl) session.getFacade()).getAllCustomerCoupons(customer_id);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -79,8 +79,8 @@ public class CustomerController {
 		return null;
 	}
 	
-	@GetMapping("/getCustomerByCouponType/{couponType}/{token}")
-	public List<Coupon> getCustomerByCouponType(@PathVariable CouponType couponType, @PathVariable String token)
+	@GetMapping("/getCouponsByCouponType/{couponType}/{token}")
+	public List<Coupon> getCouponsByCouponType(@PathVariable CouponType couponType, @PathVariable String token)
 			throws Exception {
 		Session session = exists(token);
 		if (session == null) {
@@ -88,7 +88,7 @@ public class CustomerController {
 		} else if (session != null) {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {
-				return ((CustomerServiceImpl) session.getFacade()).couponByType(couponType);
+				return ((CustomerServiceImpl) session.getFacade()).getCouponsByCouponType(couponType);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -96,8 +96,8 @@ public class CustomerController {
 		return null;
 	}
 	
-	@GetMapping("/getCustomerByPrice/{price}/{token}")
-	public List<Coupon> getCustomerByPrice(@PathVariable double price, @PathVariable String token)
+	@GetMapping("/getCouponsByPrice/{price}/{token}")
+	public List<Coupon> getCouponsByPrice(@PathVariable double price, @PathVariable String token)
 			throws Exception {
 		Session session = exists(token);
 		if (session == null) {
@@ -105,7 +105,7 @@ public class CustomerController {
 		} else if (session != null) {
 			session.setLastAccesed(System.currentTimeMillis());
 			try {
-				return ((CustomerServiceImpl) session.getFacade()).couponByPrice(price);
+				return ((CustomerServiceImpl) session.getFacade()).getCouponsByPrice(price);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
