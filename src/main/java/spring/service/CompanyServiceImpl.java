@@ -66,7 +66,7 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 	@Override
 	public Coupon createCoupon(Coupon coupon) throws Exception {
 		if (checkIfTitleAlreadyExists(coupon.getTitle()) == false) {
-//			couponRepository.save(coupon);
+			couponRepository.save(coupon);
 			Company comp = companyRepository.findById(this.company.getId()).get();
 			comp.getCoupons().add(coupon);
 			companyRepository.save(comp);
@@ -77,6 +77,7 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 			income.setDate((Date) DateUtils.getCurrentDate());
 			income.setName("Company " + company.getCompanyName());
 			incomeRepository.save(income);
+			
 		} else {
 			throw new Exception("The title " + coupon.getTitle() + " already exist, please try another title");
 		}

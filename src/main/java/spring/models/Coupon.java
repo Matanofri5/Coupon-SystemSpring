@@ -84,6 +84,15 @@ public class Coupon{
 //	public void setEndDate(long timestamp) {
 //		this.endDate = new Date(timestamp);
 //	}
+//
+//	public void setStartDate(Date startDate) {
+//		this.startDate = startDate;
+//	}
+//
+//	public void setEndDate(Date endDate) {
+//		this.endDate = endDate;
+//	}
 
+	
 	
 }

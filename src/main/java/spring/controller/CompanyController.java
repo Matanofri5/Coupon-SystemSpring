@@ -181,23 +181,27 @@ public class CompanyController {
 		return null;
 	}
 	
-	@GetMapping(value="/getCouponsByEndDate/{endDate}/{token}")
-//	@RequestMapping(value = "/getCompanyByEndDate/{endDate}/{token}", method =RequestMethod.GET, consumes="application/json")
-	public List<Coupon> getCouponsByEndDate(@PathVariable Date endDate, @PathVariable String token)
-			throws Exception {
-		Session session = exists(token);
-		if (session == null) {
-			throw new Exception("Something went wrong with the session !!");
-		} else if (session != null) {
-			session.setLastAccesed(System.currentTimeMillis());
-			try {
-				return ((CompanyServiceImpl) session.getFacade()).getCouponsByEndDate(endDate);
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		return null;
-	}
+//	@GetMapping(value="/getCouponsByEndDate/{endDate}/{token}")
+////	@RequestMapping(value = "/getCompanyByEndDate/{endDate}/{token}", method =RequestMethod.GET, consumes="application/json")
+//	public List<Coupon> getCouponsByEndDate(@PathVariable long endDate, @PathVariable String token)
+//			throws Exception {
+////		Date d = new Date(3918-1900, 10, 10);
+////		System.out.println(d.getTime());
+////		System.out.println(System.currentTimeMillis());
+//		Session session = exists(token);
+//		if (session == null) {
+//			throw new Exception("Something went wrong with the session !!");
+//		} else if (session != null) {
+//			session.setLastAccesed(System.currentTimeMillis());
+//			try {
+//				Date date = new Date(endDate);
+//				return ((CompanyServiceImpl) session.getFacade()).getCouponsByEndDate(date);
+//			} catch (Exception e) {
+//				System.out.println(e.getMessage());
+//			}
+//		}
+//		return null;
+//	}
 	
 	
 	
