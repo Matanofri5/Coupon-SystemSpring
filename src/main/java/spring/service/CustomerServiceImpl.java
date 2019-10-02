@@ -1,6 +1,7 @@
 package spring.service;
 
 import java.sql.Date;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,15 @@ public class CustomerServiceImpl implements CustomerService, CouponClientFacade 
 
 			if (coupon.getEndDate().getTime() <= coupon.getStartDate().getTime()) {
 				throw new CouponNotAvailableException("This coupon has been expired");
+			}
+			
+			List<Coupon> coupons = getAllCustomerCoupons(this.customer.getId());
+			Iterator<Coupon> iterator = coupons.iterator();
+			while(iterator.hasNext()) {
+				Coupon current = iterator.next();
+				if (current.getId()==couponId) {
+					throw new CouponNotAvailableException("This coupon cannot be purchased again");
+				}
 			}
 
 			couponRepository.save(coupon);
