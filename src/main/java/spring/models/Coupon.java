@@ -33,12 +33,12 @@ public class Coupon{
 	@Column(nullable = false, name="title")
 	private String title;
 	
-	@JsonFormat(pattern="dd-MM-yyyy")
+	@JsonFormat(pattern="yyyy-dd-MM")
 	@Basic(optional = false)
 	@Column(nullable = false, name="startDate")
 	private Date startDate;
 	
-	@JsonFormat(pattern="dd-MM-yyyy")
+	@JsonFormat(pattern="yyyy-dd-MM")
 	@Basic(optional = false)
 	@Column(nullable = false, name="endDate")
 	private Date endDate;

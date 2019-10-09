@@ -50,10 +50,6 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 		this.company = company;
 	}
 
-	// @Override
-	// public List<Company> findAll(){
-	// return companyRepository.findAll();
-	// }
 
 	@Override
 	public boolean checkIfTitleAlreadyExists(String title) {
@@ -102,18 +98,6 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 	
 	@Override
 	public void deleteCoupon(long coupon_id) throws Exception {
-//		if (!couponRepository.existsById(couponId)) {
-//			throw new CouponNotAvailableException("This coupon id doesn't exist in DataBase");
-//		}
-		
-//		List<Coupon> coupons = getAllCompanyCoupons(this.company.getId());
-//		Coupon coupon = couponRepository.findById(coupon_id).get();
-//		coupons.remove(coupon);
-//		this.company.setCoupons(coupons);
-////		couponRepository.delete(coupon);
-//		customerServiceImpl.deleteCoupon(coupon_id);
-
-		
 		Coupon coupon2 = couponRepository.getOne(coupon_id);
 		if (coupon2!=null) {
 			couponRepository.delete(coupon2);

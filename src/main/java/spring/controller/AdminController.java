@@ -242,12 +242,6 @@ public class AdminController {
 		return null;
 	}
 
-	@GetMapping("/allIncome")
-	public ResponseEntity<List<Income>> allIncome() {
-		ResponseEntity<List<Income>> allIncome = new ResponseEntity<List<Income>>(incomeService.allIncome(),
-				HttpStatus.OK);
-		return allIncome;
-	}
 	
 	@GetMapping("/viewAllIncome/{token}")
 	public ResponseEntity<List<Income>> viewAllIncome(@PathVariable String token) throws Exception {
