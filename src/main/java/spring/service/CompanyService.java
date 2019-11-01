@@ -10,8 +10,6 @@ import spring.models.CouponType;
 
 public interface CompanyService {
 
-//	List<Company> findAll();
-
 	Coupon createCoupon(Coupon coupon) throws Exception;
 
 	boolean checkIfTitleAlreadyExists(String title);
@@ -31,6 +29,5 @@ public interface CompanyService {
 	List<Coupon> getCouponsByPrice(double price) throws Exception;
 
 	List<Coupon> getCouponsByEndDate(Date endDate) throws Exception;
-
 
 }

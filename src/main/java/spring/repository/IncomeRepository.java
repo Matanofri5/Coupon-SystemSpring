@@ -11,6 +11,4 @@ public interface IncomeRepository extends JpaRepository<Income, Long> {
 
 	List<Income> findAllByClientId(long clientId);
 
-
-	
 }

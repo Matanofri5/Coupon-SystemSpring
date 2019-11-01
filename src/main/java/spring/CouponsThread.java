@@ -20,7 +20,6 @@ public class CouponsThread {
 	@Autowired
 	CouponRepository couponRepository;
 
-	private boolean exit = false;
 	private boolean running = true;
 
 	public void removeExpiredCoupons(Date date) {
@@ -38,7 +37,7 @@ public class CouponsThread {
 						Thread.sleep(1000 * 60 * 60 * 24);
 //						Thread.sleep(2000);
 					} catch (InterruptedException e) {
-						System.out.println("Eroor " + e.getMessage());
+						System.out.println("Error " + e.getMessage());
 					}
 				}
 			}

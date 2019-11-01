@@ -66,6 +66,7 @@ public class CompanyServiceImpl implements CompanyService, CouponClientFacade {
 			Company comp = companyRepository.findById(this.company.getId()).get();
 			comp.getCoupons().add(coupon);
 			companyRepository.save(comp);
+			
 			Income income = new Income();
 			income.setClientId(this.company.getId());
 			income.setAmount(100.0);

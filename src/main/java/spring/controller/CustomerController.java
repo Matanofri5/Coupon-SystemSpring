@@ -34,15 +34,6 @@ public class CustomerController {
 	private Session exists(String token) {
 		return LoginController.tokens.get(token);
 	}
-
-//	 @PostMapping("/purchaseCoupon/{token}")
-//	 public ResponseEntity<Customer> purchaseCoupon (@PathVariable long couponId,
-//	 @PathVariableString token) throws Exception{
-//	 Customer customer = customerService.purchaseCoupon(couponId);
-//	 ResponseEntity<Customer> result = new
-//	 ResponseEntity<Customer>(customer,HttpStatus.OK);
-//	 return result;
-//	 }
 	
 	@PostMapping("/purchaseCoupon/{couponId}/{token}")
 	public ResponseEntity<String> purchaseCoupon(@PathVariable long couponId, @PathVariable String token)
@@ -112,5 +103,5 @@ public class CustomerController {
 		}
 		return null;
 	}
-	
+
 }

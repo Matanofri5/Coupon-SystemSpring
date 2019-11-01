@@ -42,7 +42,7 @@ public class CompanyController {
 
 	@Autowired
 	private CouponRepository couponRepository;
-	
+
 	@Autowired
 	private IncomeService incomeService;
 
@@ -162,11 +162,9 @@ public class CompanyController {
 		}
 		return null;
 	}
-	
-	
+
 	@GetMapping("/getCouponsByPrice/{price}/{token}")
-	public List<Coupon> getCouponsByPrice(@PathVariable double price, @PathVariable String token)
-			throws Exception {
+	public List<Coupon> getCouponsByPrice(@PathVariable double price, @PathVariable String token) throws Exception {
 		Session session = exists(token);
 		if (session == null) {
 			throw new Exception("Something went wrong with the session !!");
@@ -180,33 +178,7 @@ public class CompanyController {
 		}
 		return null;
 	}
-	
-//	@GetMapping(value="/getCouponsByEndDate/{endDate}/{token}")
-////	@RequestMapping(value = "/getCompanyByEndDate/{endDate}/{token}", method =RequestMethod.GET, consumes="application/json")
-//	public List<Coupon> getCouponsByEndDate(@PathVariable long endDate, @PathVariable String token)
-//			throws Exception {
-////		Date d = new Date(3918-1900, 10, 10);
-////		System.out.println(d.getTime());
-////		System.out.println(System.currentTimeMillis());
-//		Session session = exists(token);
-//		if (session == null) {
-//			throw new Exception("Something went wrong with the session !!");
-//		} else if (session != null) {
-//			session.setLastAccesed(System.currentTimeMillis());
-//			try {
-//				Date date = new Date(endDate);
-//				return ((CompanyServiceImpl) session.getFacade()).getCouponsByEndDate(date);
-//			} catch (Exception e) {
-//				System.out.println(e.getMessage());
-//			}
-//		}
-//		return null;
-//	}
-	
-	
-	
-	
-	
+
 	@GetMapping("/viewIncomeByCompanyId/{companyId}/{token}")
 	public List<Income> viewIncomeByCompanyId(@PathVariable long companyId, @PathVariable String token)
 			throws Exception {
@@ -224,5 +196,4 @@ public class CompanyController {
 		return null;
 	}
 
-	
 }
