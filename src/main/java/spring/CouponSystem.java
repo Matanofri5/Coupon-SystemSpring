@@ -1,5 +1,7 @@
 package spring;
 
+import java.sql.Date;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
@@ -34,18 +36,26 @@ public class CouponSystem {
 	@Autowired
 	private CustomerRepository customerRepo;
 	
+//	@Autowired
+//	private CouponsThread couponsThread;
+//
+//	 @PostConstruct
+//	 public void init() {
+//		 couponsThread.startThread();
+//	 }
+//
+//	 @PreDestroy
+//	 public void destroy() {
+//		 couponsThread.stopThread();
+//	 }
+	
 	@Autowired
-	private CouponsThread couponsThread;
-
-	 @PostConstruct
-	 public void init() {
-		 couponsThread.startThread();
-	 }
-
-	 @PreDestroy
-	 public void destroy() {
-		 couponsThread.stopThread();
-	 }
+	private ScheduledTask scheduledTask;
+	
+	@PostConstruct
+	public void init() {
+		scheduledTask.MyTask();
+	}
 
 	public CouponClientFacade login(String name, String password, ClientType clientType) throws couponSystemException {
 		switch (clientType) {
