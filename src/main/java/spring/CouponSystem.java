@@ -1,10 +1,6 @@
 package spring;
 
-import java.sql.Date;
-
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -14,9 +10,7 @@ import spring.models.Company;
 import spring.models.Customer;
 import spring.repository.CompanyRepository;
 import spring.repository.CustomerRepository;
-import spring.service.AdminService;
 import spring.service.AdminServiceImpl;
-import spring.service.CompanyService;
 import spring.service.CompanyServiceImpl;
 import spring.service.CustomerService;
 import spring.service.CustomerServiceImpl;
@@ -35,23 +29,10 @@ public class CouponSystem {
 
 	@Autowired
 	private CustomerRepository customerRepo;
-	
-//	@Autowired
-//	private CouponsThread couponsThread;
-//
-//	 @PostConstruct
-//	 public void init() {
-//		 couponsThread.startThread();
-//	 }
-//
-//	 @PreDestroy
-//	 public void destroy() {
-//		 couponsThread.stopThread();
-//	 }
-	
+
 	@Autowired
 	private ScheduledTask scheduledTask;
-	
+
 	@PostConstruct
 	public void init() {
 		scheduledTask.MyTask();
@@ -63,7 +44,7 @@ public class CouponSystem {
 			if (name.equals("admin") && password.equals("1234")) {
 				adminFacade = context.getBean(AdminServiceImpl.class);
 				return (CouponClientFacade) adminFacade;
-			}else {
+			} else {
 				throw new couponSystemException("Admin failed to connect");
 			}
 		case COMPANY:
